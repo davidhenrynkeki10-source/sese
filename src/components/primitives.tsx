@@ -1,33 +1,3 @@
-export function ArtStudy({
-  kind = "fold",
-  className = "",
-}: {
-  kind?: string;
-  className?: string;
-}) {
-  return (
-    <div className={`art-study art-${kind} ${className}`} aria-hidden="true">
-      <div className="art-light" />
-      <div className="art-object">
-        <i />
-        <i />
-        <i />
-      </div>
-      <div className="art-grain" />
-    </div>
-  );
-}
-export function ArrowLink({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <a className="arrow-link" href={href}>
-      {children}
-      <span aria-hidden="true">↗</span>
-    </a>
-  );
-}
+﻿import Link from "next/link";
+export function ArtStudy({kind="fold",className=""}:{kind?:string;className?:string}) { return <div className={`art-study art-${kind} ${className}`} aria-hidden="true"><div className="art-light"/><div className="art-object"><i/><i/><i/></div><div className="art-grain"/></div>; }
+export function ArrowLink({href,children}:{href:string;children:React.ReactNode}) { return <Link className="arrow-link" href={href}>{children}<svg aria-hidden="true" className="arrow-glyph" viewBox="0 0 24 24" fill="none"><path d="M5 19 19 5M7 5h12v12" stroke="currentColor" strokeWidth="1.25"/></svg></Link>; }

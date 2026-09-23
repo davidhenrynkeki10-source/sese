@@ -1,59 +1,16 @@
-export type Piece = {
-  id: string;
-  name: string;
-  category: string;
-  price: number;
-  art: string;
-  description: string;
+﻿export type Piece = {
+  id: string; slug: string; name: string; category: string; price: number; art: string; description: string;
+  store: "retail" | "bespoke"; availability: "ready-to-buy" | "made-to-order"; featured?: boolean;
 };
 export const pieces: Piece[] = [
-  {
-    id: "01",
-    name: "The Fold Wrap",
-    category: "Wearables",
-    price: 85000,
-    art: "fold",
-    description:
-      "A study in movement. An enveloping silhouette imagined in a softly structured textile, made for the everyday ritual of getting dressed.",
-  },
-  {
-    id: "02",
-    name: "Contour Vessel",
-    category: "Objects",
-    price: 62000,
-    art: "vessel",
-    description:
-      "An exploration of volume and quiet presence. A sculptural object imagined for the spaces we make our own.",
-  },
-  {
-    id: "03",
-    name: "Memory Cloth",
-    category: "Textiles",
-    price: 48000,
-    art: "cloth",
-    description:
-      "Texture, rhythm and a sense of belonging. A textile concept that brings a considered layer to contemporary living.",
-  },
+  { id: "01", slug: "fold-wrap", name: "The Fold Wrap", category: "Wearables", price: 85000, art: "fold", description: "A softly structured textile wrap, shaped for movement and everyday wear.", store: "retail", availability: "ready-to-buy", featured: true },
+  { id: "02", slug: "contour-vessel", name: "Contour Vessel", category: "Objects", price: 62000, art: "vessel", description: "A sculptural vessel with a quiet, grounded presence.", store: "retail", availability: "ready-to-buy", featured: true },
+  { id: "03", slug: "memory-cloth", name: "Memory Cloth", category: "Textiles", price: 48000, art: "cloth", description: "A considered textile study in texture, rhythm and belonging.", store: "retail", availability: "ready-to-buy", featured: true },
+  { id: "04", slug: "ceremony-wrap", name: "Ceremony Wrap", category: "Wearables", price: 120000, art: "fold", description: "A made-to-order statement wrap, finished to your preferred length and palette.", store: "bespoke", availability: "made-to-order" },
+  { id: "05", slug: "heirloom-vessel", name: "Heirloom Vessel", category: "Objects", price: 145000, art: "vessel", description: "A made-to-order sculptural vessel with a custom finish.", store: "bespoke", availability: "made-to-order" },
+  { id: "06", slug: "woven-panel", name: "Woven Panel", category: "Textiles", price: 98000, art: "cloth", description: "A made-to-order textile panel, sized for your space.", store: "bespoke", availability: "made-to-order" },
 ];
-export const categories = [
-  "Wearables",
-  "Objects",
-  "Textiles",
-  "Limited editions",
-];
-export const stories = [
-  {
-    title: "The things we choose to keep.",
-    category: "Culture & objects",
-    art: "vessel",
-    body: "Some objects become part of our daily language. We return to them for their weight, their texture, or the memories they hold. This is a reflection on living with fewer, more meaningful things—and leaving room for their stories to grow.",
-  },
-  {
-    title: "A conversation with material.",
-    category: "Inside the studio",
-    art: "cloth",
-    body: "Every design begins with a question: what does the material want to become? These early studies explore the relationship between softness and structure, light and surface. They are an invitation to look more closely at the ordinary.",
-  },
-];
-export const formatPrice = (price: number) =>
-  `₦${price.toLocaleString("en-NG")}`;
+export const categories = ["Wearables", "Objects", "Textiles", "Limited editions"];
+export const stories: { title: string; category: string; art: string; body: string }[] = [];
+export const formatPrice = (price: number) => `₦${price.toLocaleString("en-NG")}`;
+export const productBySlug = (slug: string) => pieces.find((piece) => piece.slug === slug);

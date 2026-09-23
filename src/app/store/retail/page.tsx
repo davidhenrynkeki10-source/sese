@@ -1,0 +1,5 @@
+﻿import Link from "next/link";
+import { SiteNavigation, ProductGrid } from "@/components/interactive";
+import { Motion } from "@/components/motion";
+import { pieces, categories } from "@/data/collections";
+export default function RetailStore() { const items = pieces.filter(p => p.store === "retail"); return <><SiteNavigation/><main className="store-page"><div className="store-heading"><p className="eyebrow">Sésé / Ready to live</p><h1>Retail Store</h1><p>Objects for everyday rituals.</p></div><nav className="product-filters" aria-label="Product categories">{categories.slice(0,3).map(category=><a href={`#${category.toLowerCase()}`} key={category}>{category}</a>)}</nav>{categories.slice(0,3).map(category=><section className="store-category" id={category.toLowerCase()} key={category}><div className="section-heading"><div><p className="eyebrow">Shop category</p><h2>{category}</h2></div></div><ProductGrid items={items.filter(p=>p.category===category)}/></section>)}</main><footer className="footer section-pad"><Link href="/store/bespoke">Discover Bespoke</Link></footer><Motion/></>; }
