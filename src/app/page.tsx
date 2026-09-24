@@ -1,14 +1,19 @@
-﻿import { SiteNavigation } from "@/components/interactive";
+﻿import Image from "next/image";
+import { SiteNavigation } from "@/components/interactive";
 
 export default function Home() {
     return <>
         <a className="skip-link" href="#main">Skip to content</a>
-        <SiteNavigation/>
+        <SiteNavigation />
         <main id="main" className="minimal-hero">
-            <div className="hero-rect">
-                <div className="hero-bg" aria-hidden="true"/>
-                <div className="hero-bar" aria-hidden="true"/>
-                <div className="hero-wordmark">SéSé</div>
+            <div className="hero-rect" style={{ background: 'transparent' }}>
+                <Image
+                    src="/images/sese-logo.png"
+                    alt="SéSé Logo"
+                    fill
+                    style={{ objectFit: 'contain', objectPosition: 'left' }}
+                    priority
+                />
             </div>
         </main>
     </>;
