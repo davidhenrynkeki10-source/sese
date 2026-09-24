@@ -1,19 +1,16 @@
-﻿import Link from "next/link";
-import Image from "next/image";
-import { SiteNavigation, ProductGrid, Newsletter, ArrowGlyph } from "@/components/interactive";
-import { ArrowLink } from "@/components/primitives";
-import { Motion } from "@/components/motion";
-import { pieces } from "@/data/collections";
+﻿import { SiteNavigation } from "@/components/interactive";
+
 export default function Home() {
- const retail = pieces.filter(p => p.store === "retail");
- return <><a className="skip-link" href="#main">Skip to content</a><SiteNavigation/><main id="main">
-  <section className="hero shop-hero"><div className="hero-copy"><div className="hero-bottom hero-reveal"><p>Wearables, textiles and objects.</p><ArrowLink href="/store/retail">Shop now</ArrowLink></div></div><Link className="hero-art hero-logo-art" href="/store/retail" aria-label="Shop Sésé retail"><Image src="/images/sese-logo.png" alt="Sésé logo" fill priority sizes="(max-width: 700px) 88vw, 45vw" style={{ objectFit: "contain" }}/></Link><div className="hero-foot"><span>African design, made contemporary.</span><Link href="#new-arrivals">Discover pieces <ArrowGlyph direction="down"/></Link><span>01 — 06</span></div></section>
-  <section className="featured section-pad" id="new-arrivals"><div className="section-heading"><div><p className="eyebrow">New arrivals</p><h2>Just in.</h2></div><Link className="text-link" href="/store/retail">Shop all <ArrowGlyph/></Link></div><ProductGrid items={retail.slice(0,3)}/></section>
-  <section className="category-section section-pad"><div className="section-heading"><div><p className="eyebrow">Shop by category</p><h2>Find your form.</h2></div></div><div className="category-grid">{[{name:"Wearables",art:"fold"},{name:"Objects",art:"vessel"},{name:"Textiles",art:"cloth"}].map(c=><Link className="category-card" key={c.name} href="/store/retail"><div><div className={`art-study art-${c.art}`} aria-hidden="true"><div className="art-light"/><div className="art-object"><i/><i/><i/></div><div className="art-grain"/></div></div><h3>{c.name}<ArrowGlyph/></h3></Link>)}</div></section>
-  <section className="featured section-pad"><div className="section-heading"><div><p className="eyebrow">Selected pieces</p><h2>Considered forms.</h2></div><Link className="text-link" href="/store/retail">View retail store <ArrowGlyph/></Link></div><ProductGrid items={retail.slice().reverse()}/></section>
-  <section className="campaign shop-feature"><Link className="campaign-art" href="/store/bespoke"><div className="art-study art-cloth" aria-hidden="true"><div className="art-light"/><div className="art-object"><i/><i/><i/></div><div className="art-grain"/></div><span className="campaign-label eyebrow">Sésé / Made to order</span></Link><div className="campaign-copy"><p className="eyebrow">Bespoke</p><h2>Made<br/><em>for you.</em></h2><ArrowLink href="/store/bespoke">Explore Bespoke</ArrowLink></div></section>
-  <section className="retail-banner"><Link href="/store/retail"><div className="art-study art-vessel" aria-hidden="true"><div className="art-light"/><div className="art-object"><i/><i/><i/></div><div className="art-grain"/></div><span><span className="eyebrow">Ready to wear / Ready to live</span><strong>Shop Retail <ArrowGlyph/></strong></span></Link></section>
-  <section className="newsletter section-pad" id="newsletter"><div><p className="eyebrow">The Sésé letter</p><h2>Stay close.</h2></div><Newsletter/></section>
- </main><footer className="footer section-pad"><div className="footer-links"><Link href="/about">About Sésé</Link><Link href="/store/bespoke">Bespoke Store</Link><Link href="/store/retail">Retail Store</Link><Link href="/cart">Cart</Link></div><Link className="footer-wordmark" href="/">SÉSÉ</Link><div className="footer-bottom"><span>© {new Date().getFullYear()} Sésé</span><a href="#main">Back to top <ArrowGlyph direction="up"/></a></div></footer><Motion/></>;
+    return <>
+        <a className="skip-link" href="#main">Skip to content</a>
+        <SiteNavigation/>
+        <main id="main" className="minimal-hero">
+            <div className="hero-rect">
+                <div className="hero-bg" aria-hidden="true"/>
+                <div className="hero-bar" aria-hidden="true"/>
+                <div className="hero-wordmark">SéSé</div>
+            </div>
+        </main>
+    </>;
 }
 
