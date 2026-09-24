@@ -504,7 +504,7 @@ section {
   align-items: center;
 }
 
-.minimal-nav {
+.site-header nav.minimal-nav {
   display: flex;
   gap: 80px;
   padding: 26px 5.5%;
@@ -625,7 +625,7 @@ section {
     z-index: 60;
   }
 
-  .minimal-nav {
+  .site-header nav.minimal-nav {
     display: none;
     position: absolute;
     top: 92px;
@@ -640,7 +640,7 @@ section {
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
   }
 
-  .minimal-nav.open {
+  .site-header nav.minimal-nav.open {
     display: flex;
   }
 }
