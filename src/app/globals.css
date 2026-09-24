@@ -634,10 +634,15 @@ section {
     background: #ffffff;
     flex-direction: column;
     align-items: flex-end;
-    padding: 20px 6% 40px;
-    gap: 30px;
+    padding: 10px 6% 15px;
+    gap: 0px;
     border-bottom: 1px solid var(--line);
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .site-header nav.minimal-nav .nav-item {
+    padding: 8px 0;
+    margin: 0;
   }
 
   .site-header nav.minimal-nav.open {
