@@ -506,7 +506,7 @@ section {
 
 .site-header nav.minimal-nav {
   display: flex;
-  gap: 80px;
+  gap: 50px;
   padding: 26px 5.5%;
   font-family: var(--ui-sans);
   font-size: 14px;
@@ -569,10 +569,9 @@ section {
 }
 
 .hero-rect {
-  /* move rectangle to the left and make it slightly narrower */
   width: 240px;
   /* keep slightly increased vertical length */
-  height: calc(100svh - 180px);
+  height: calc(100svh - 100px);
   margin-top: 92px;
   /* leave room for header */
   margin-left: 5.5%;
@@ -646,6 +645,7 @@ section {
 
   .site-header.minimal {
     justify-content: center;
+    height: 56px;
   }
 
   .mobile-menu-toggle {
@@ -656,21 +656,22 @@ section {
   .site-header nav.minimal-nav {
     display: none;
     position: absolute;
-    top: 92px;
+    top: 56px;
     right: 0;
     width: 100%;
     background: #ffffff;
     flex-direction: column;
     align-items: center;
-    padding: 10px 6% 15px;
+    padding: 6px 6% 10px;
     gap: 0px;
     border-bottom: 1px solid var(--line);
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
   }
 
   .site-header nav.minimal-nav .nav-item {
-    padding: 8px 0;
+    padding: 4px 0;
     margin: 0;
+    font-size: 11px;
   }
 
   .site-header nav.minimal-nav.open {
@@ -685,8 +686,8 @@ section {
     position: static;
     transform: none;
     align-items: center;
-    padding-top: 8px;
-    gap: 10px;
+    padding-top: 4px;
+    gap: 4px;
   }
 }
 
