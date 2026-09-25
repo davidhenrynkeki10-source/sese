@@ -644,6 +644,10 @@ section {
     z-index: 2;
   }
 
+  .site-header.minimal {
+    justify-content: center;
+  }
+
   .mobile-menu-toggle {
     display: block;
     z-index: 60;
@@ -657,7 +661,7 @@ section {
     width: 100%;
     background: #ffffff;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     padding: 10px 6% 15px;
     gap: 0px;
     border-bottom: 1px solid var(--line);
@@ -674,13 +678,13 @@ section {
   }
 
   .site-header nav.minimal-nav .store-menu-container {
-    align-items: flex-end;
+    align-items: center;
   }
 
   .site-header nav.minimal-nav .store-subtabs {
     position: static;
     transform: none;
-    align-items: flex-end;
+    align-items: center;
     padding-top: 8px;
     gap: 10px;
   }
@@ -2754,7 +2758,6 @@ dialog::backdrop {
     height: 68px;
     grid-template-columns: 1fr auto;
     padding: 0 6%;
-    box-shadow: 0 1px 0 var(--line)
   }
 
   .site-header .nav-spacer {
