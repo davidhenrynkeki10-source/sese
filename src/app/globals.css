@@ -571,7 +571,7 @@ section {
 .hero-rect {
   width: 240px;
   /* keep slightly increased vertical length */
-  height: calc(100svh - 100px);
+  height: calc(100svh - 140px);
   margin-top: 92px;
   /* leave room for header */
   margin-left: 5.5%;
@@ -598,7 +598,7 @@ section {
   /* Mobile: show compact vertical bar over a pale square, centered lower on the page */
   .hero-rect {
     width: 160px;
-    height: calc(60svh);
+    height: calc(60svh + 20px);
     margin: calc(20vh) auto 0;
     margin-top: calc(18vh + 44px);
     background: transparent;
