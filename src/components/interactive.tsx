@@ -10,6 +10,7 @@ function useCartCount() { const [count, setCount] = useState(0); useEffect(() =>
 export function SiteNavigation() {
     const count = useCartCount();
     const [menuOpen, setMenuOpen] = useState(false);
+    const [storeOpen, setStoreOpen] = useState(false);
     return <header className={`site-header minimal`}>
         <div className="mobile-menu-toggle">
             <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu" className="menu-btn">
@@ -21,9 +22,25 @@ export function SiteNavigation() {
             </button>
         </div>
         <nav className={`minimal-nav ${menuOpen ? "open" : ""}`} aria-label="Main navigation">
-            <Link href="/about" className="nav-item about" onClick={() => setMenuOpen(false)}>A B O U T</Link>
-            <Link href="/store" className="nav-item store" onClick={() => setMenuOpen(false)}>S T O R E</Link>
-            <Link href="/cart" className="nav-item cart" onClick={() => setMenuOpen(false)}>C A R T ({count})</Link>
+            <Link href="/about" className="nav-item about" onClick={() => { setMenuOpen(false); setStoreOpen(false); }}>A B O U T</Link>
+
+            <div className="store-menu-container">
+                <button
+                    className="nav-item store"
+                    onClick={() => setStoreOpen(!storeOpen)}
+                    aria-expanded={storeOpen}
+                >
+                    S T O R E
+                </button>
+                {storeOpen && (
+                    <div className="store-subtabs">
+                        <Link href="/store/bespoke" className="nav-item store" onClick={() => { setStoreOpen(false); setMenuOpen(false); }}>BESPOKE STORE</Link>
+                        <Link href="/store/retail" className="nav-item store" onClick={() => { setStoreOpen(false); setMenuOpen(false); }}>RETAIL STORE</Link>
+                    </div>
+                )}
+            </div>
+
+            <Link href="/cart" className="nav-item cart" onClick={() => { setMenuOpen(false); setStoreOpen(false); }}>C A R T ({count})</Link>
         </nav>
     </header>;
 }

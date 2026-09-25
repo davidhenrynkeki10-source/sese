@@ -536,6 +536,30 @@ section {
   letter-spacing: 0.55em;
 }
 
+.store-menu-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.store-subtabs {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-top: 20px;
+  align-items: center;
+}
+
+.store-subtabs .nav-item {
+  white-space: nowrap;
+  font-size: 11px;
+}
+
 .minimal-hero {
   min-height: 100svh;
   display: flex;
@@ -647,6 +671,18 @@ section {
 
   .site-header nav.minimal-nav.open {
     display: flex;
+  }
+
+  .site-header nav.minimal-nav .store-menu-container {
+    align-items: flex-end;
+  }
+
+  .site-header nav.minimal-nav .store-subtabs {
+    position: static;
+    transform: none;
+    align-items: flex-end;
+    padding-top: 8px;
+    gap: 10px;
   }
 }
 
