@@ -11,6 +11,7 @@ export function SiteNavigation() {
     const count = useCartCount();
     const [menuOpen, setMenuOpen] = useState(false);
     const [storeOpen, setStoreOpen] = useState(false);
+    const [aboutOpen, setAboutOpen] = useState(false);
     return <header className={`site-header minimal`}>
         <div className="mobile-menu-toggle">
             <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu" className="menu-btn">
@@ -22,7 +23,21 @@ export function SiteNavigation() {
             </button>
         </div>
         <nav className={`minimal-nav ${menuOpen ? "open" : ""}`} aria-label="Main navigation">
-            <Link href="/about" className="nav-item about" onClick={() => { setMenuOpen(false); setStoreOpen(false); }}>A B O U T</Link>
+            <div className="store-menu-container">
+                <button
+                    className="nav-item about"
+                    onClick={() => setAboutOpen(!aboutOpen)}
+                    aria-expanded={aboutOpen}
+                >
+                    ABOUT
+                </button>
+                {aboutOpen && (
+                    <div className="store-subtabs about-subtabs">
+                        <Link href="/about/man" className="nav-item about" onClick={() => { setAboutOpen(false); setMenuOpen(false); }}>MAN</Link>
+                        <Link href="/about/brand" className="nav-item about" onClick={() => { setAboutOpen(false); setMenuOpen(false); }}>BRAND</Link>
+                    </div>
+                )}
+            </div>
 
             <div className="store-menu-container">
                 <button
@@ -30,17 +45,17 @@ export function SiteNavigation() {
                     onClick={() => setStoreOpen(!storeOpen)}
                     aria-expanded={storeOpen}
                 >
-                    S T O R E
+                    STORE
                 </button>
                 {storeOpen && (
                     <div className="store-subtabs">
-                        <Link href="/store/bespoke" className="nav-item store" onClick={() => { setStoreOpen(false); setMenuOpen(false); }}>BESPOKE STORE</Link>
                         <Link href="/store/retail" className="nav-item store" onClick={() => { setStoreOpen(false); setMenuOpen(false); }}>RETAIL STORE</Link>
+                        <Link href="/store/bespoke" className="nav-item store" onClick={() => { setStoreOpen(false); setMenuOpen(false); }}>BESPOKE STORE</Link>
                     </div>
                 )}
             </div>
 
-            <Link href="/cart" className="nav-item cart" onClick={() => { setMenuOpen(false); setStoreOpen(false); }}>C A R T ({count})</Link>
+            <Link href="/cart" className="nav-item cart" onClick={() => { setMenuOpen(false); setStoreOpen(false); setAboutOpen(false); }}>CART ({count})</Link>
         </nav>
     </header>;
 }

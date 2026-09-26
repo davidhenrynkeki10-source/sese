@@ -241,22 +241,8 @@ section {
   padding: 10px 0;
 }
 
-.site-header nav a:after,
-.site-header nav button:after {
-  content: "";
-  position: absolute;
-  bottom: 4px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: currentColor;
-  transition: width 0.3s;
-}
 
-.site-header nav a:hover:after,
-.site-header nav button:hover:after {
-  width: 100%;
-}
+
 
 .hero {
   position: relative;
@@ -488,6 +474,7 @@ section {
   justify-content: flex-end;
   background: transparent;
   z-index: 50;
+  padding-right: 0;
 }
 
 .mobile-menu-toggle {
@@ -508,8 +495,10 @@ section {
   display: flex;
   gap: 50px;
   padding: 26px 5.5%;
+  padding-right: 5.5%;
+  margin-left: auto;
   font-family: var(--ui-sans);
-  font-size: 14px;
+  font-size: 11px;
   align-items: center;
 }
 
@@ -518,22 +507,26 @@ section {
   text-decoration: none;
   text-transform: none;
   flex-shrink: 0;
+  display: inline-block;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.minimal-nav .nav-item:hover {
+  transform: scale(1.18);
+  opacity: 1;
 }
 
 .minimal-nav .nav-item.about {
   text-transform: uppercase;
-  letter-spacing: 0.35em;
   color: var(--menu-muted);
 }
 
 .minimal-nav .nav-item.store {
-  letter-spacing: 0.55em;
   color: var(--menu-muted);
 }
 
 .minimal-nav .nav-item.cart {
   color: var(--menu-sky);
-  letter-spacing: 0.55em;
 }
 
 .store-menu-container {
@@ -550,14 +543,27 @@ section {
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding-top: 20px;
+  gap: 6px;
+  padding-top: 6px;
   align-items: center;
 }
 
-.store-subtabs .nav-item {
+.store-subtabs .nav-item,
+.about-subtabs .nav-item {
   white-space: nowrap;
-  font-size: 11px;
+  font-size: 10px;
+}
+
+.about-subtabs {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 6px;
+  align-items: center;
 }
 
 .minimal-hero {
@@ -570,14 +576,10 @@ section {
 
 .hero-rect {
   width: 240px;
-  /* keep slightly increased vertical length */
   height: calc(100svh - 140px);
-  margin-top: 92px;
-  /* leave room for header */
+  margin-top: 46px;
   margin-left: 5.5%;
-  /* align with nav left padding */
   margin-right: auto;
-  /* push it to the left side */
   background: var(--hero-red);
   position: relative;
   display: flex;
@@ -679,7 +681,8 @@ section {
     align-items: center;
   }
 
-  .site-header nav.minimal-nav .store-subtabs {
+  .site-header nav.minimal-nav .store-subtabs,
+  .site-header nav.minimal-nav .about-subtabs {
     position: static;
     transform: none;
     align-items: center;
