@@ -49,7 +49,7 @@ export default function RetailStore() {
           }
           .left-section {
             width: 100% !important;
-            /* Keep original alignment and padding */
+            padding-left: 120px !important; /* Moves the text even further right on mobile */
           }
         }
       `}} />
