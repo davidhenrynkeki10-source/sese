@@ -49,8 +49,8 @@ export function SiteNavigation() {
                 </button>
                 {storeOpen && (
                     <div className="store-subtabs">
-                        <Link href="/store/retail" className="nav-item store" onClick={() => { setStoreOpen(false); setMenuOpen(false); }}>RETAIL STORE</Link>
-                        <Link href="/store/bespoke" className="nav-item store" onClick={() => { setStoreOpen(false); setMenuOpen(false); }}>BESPOKE STORE</Link>
+                        <Link href="/store/retail" className="nav-item store" onClick={() => { setStoreOpen(false); setMenuOpen(false); }}>RETAIL</Link>
+                        <Link href="/store/bespoke" className="nav-item store" onClick={() => { setStoreOpen(false); setMenuOpen(false); }}>BESPOKE</Link>
                     </div>
                 )}
             </div>
