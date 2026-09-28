@@ -42,6 +42,28 @@ export default function RetailStore() {
           opacity: 1;
         }
 
+        .marquee-wrapper {
+          width: 100%;
+          height: 90%;
+          position: relative;
+          overflow: hidden;
+        }
+        .marquee-content {
+          display: flex;
+          width: 133.3333%;
+          height: 100%;
+          animation: slide-right 8s linear infinite;
+        }
+        .marquee-item {
+          width: 25%;
+          height: 100%;
+          position: relative;
+        }
+        @keyframes slide-right {
+          0% { transform: translateX(-25%); }
+          100% { transform: translateX(0%); }
+        }
+
         /* Mobile Adjustments */
         @media (max-width: 700px) {
           .right-section {
@@ -73,7 +95,7 @@ export default function RetailStore() {
           listStyleType: 'none',
           padding: 0,
           margin: 0,
-          marginBottom: '20px'
+          marginBottom: '80px'
         }}>
           {['SUITS', 'SHIRTS', 'SHOES', 'SLIPPERS', 'KAFTANS', 'JACKETS'].map((item) => (
             <li key={item} style={{ marginBottom: '0px', lineHeight: '1.1' }}>
@@ -90,19 +112,26 @@ export default function RetailStore() {
         width: '70%',
         display: 'flex',
         justifyContent: 'flex-end',
-        alignItems: 'center'
+        alignItems: 'center',
+        overflow: 'hidden'
       }}>
-        <div style={{ position: 'relative', width: '100%', height: '90%' }}>
-          <Image 
-            src="/images/man-bag.png" 
-            alt="Retail Fashion" 
-            fill
-            style={{ 
-              objectFit: 'contain',
-              objectPosition: '85% center' /* Shifts the image slightly left from the absolute edge */
-            }}
-            priority
-          />
+        <div className="marquee-wrapper">
+          <div className="marquee-content">
+            {[1, 2, 3, 4].map((idx) => (
+              <div key={idx} className="marquee-item">
+                <Image 
+                  src="/images/man-bag.png" 
+                  alt={`Retail Fashion ${idx}`} 
+                  fill
+                  style={{ 
+                    objectFit: 'contain',
+                    objectPosition: 'center'
+                  }}
+                  priority={idx <= 3}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
