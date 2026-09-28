@@ -76,7 +76,7 @@ export default function RetailStore() {
           marginBottom: '20px'
         }}>
           {['SUITS', 'SHIRTS', 'SHOES', 'SLIPPERS', 'KAFTANS', 'JACKETS'].map((item) => (
-            <li key={item} style={{ marginBottom: '2px' }}>
+            <li key={item} style={{ marginBottom: '0px', lineHeight: '1.1' }}>
               <Link href={`#${item.toLowerCase()}`} className="category-link">
                 {item}
               </Link>
