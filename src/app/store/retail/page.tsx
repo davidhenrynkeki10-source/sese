@@ -49,7 +49,7 @@ export default function RetailStore() {
           }
           .left-section {
             width: 100% !important;
-            padding-left: 120px !important; /* Moves the text even further right on mobile */
+            padding-left: 0px !important;
           }
         }
       `}} />
@@ -61,7 +61,7 @@ export default function RetailStore() {
         justifyContent: 'space-between',
         width: '30%',
         height: '100%',
-        paddingLeft: '40px' 
+        paddingLeft: '0px' 
       }}>
         {/* Top Left: Home Link */}
         <Link href="/" className="home-link-custom">
@@ -76,7 +76,7 @@ export default function RetailStore() {
           marginBottom: '20px'
         }}>
           {['SUITS', 'SHIRTS', 'SHOES', 'SLIPPERS', 'KAFTANS', 'JACKETS'].map((item) => (
-            <li key={item} style={{ marginBottom: '8px' }}>
+            <li key={item} style={{ marginBottom: '2px' }}>
               <Link href={`#${item.toLowerCase()}`} className="category-link">
                 {item}
               </Link>
