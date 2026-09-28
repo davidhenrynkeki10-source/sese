@@ -16,7 +16,7 @@ export default function RetailStore() {
         .category-link {
           text-decoration: none;
           color: var(--menu-muted); /* Using the exact color */
-          font-size: 11px;
+          font-size: 9.5px;
           letter-spacing: 0.5px;
           display: inline-block;
           transition: transform 0.2s ease, opacity 0.2s ease;
@@ -31,7 +31,7 @@ export default function RetailStore() {
         .home-link-custom {
           text-decoration: none;
           color: var(--menu-muted);
-          font-size: 11px;
+          font-size: 9.5px;
           letter-spacing: 1px;
           text-transform: uppercase;
           transition: transform 0.2s ease, opacity 0.2s ease;
