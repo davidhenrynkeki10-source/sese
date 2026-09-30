@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import RetailSlideshow from './RetailSlideshow';
 
 export default function RetailStore() {
   return (
@@ -10,12 +10,12 @@ export default function RetailStore() {
       boxSizing: 'border-box',
       padding: '50px 40px',
       backgroundColor: '#ffffff',
-      fontFamily: 'var(--ui-sans)' /* Using the exact font from the nav */
+      fontFamily: 'var(--ui-sans)'
     }}>
       <style dangerouslySetInnerHTML={{__html: `
         .category-link {
           text-decoration: none;
-          color: var(--menu-muted); /* Using the exact color */
+          color: var(--menu-muted);
           font-size: 9.5px;
           letter-spacing: 0.5px;
           display: inline-block;
@@ -42,28 +42,6 @@ export default function RetailStore() {
           opacity: 1;
         }
 
-        .marquee-wrapper {
-          width: 100%;
-          height: 90%;
-          position: relative;
-          overflow: hidden;
-        }
-        .marquee-content {
-          display: flex;
-          width: 133.3333%;
-          height: 100%;
-          animation: slide-right 8s linear infinite;
-        }
-        .marquee-item {
-          width: 25%;
-          height: 100%;
-          position: relative;
-        }
-        @keyframes slide-right {
-          0% { transform: translateX(-25%); }
-          100% { transform: translateX(0%); }
-        }
-
         /* Mobile Adjustments */
         @media (max-width: 700px) {
           .right-section {
@@ -83,13 +61,13 @@ export default function RetailStore() {
         justifyContent: 'space-between',
         width: '30%',
         height: '100%',
-        paddingLeft: '0px' 
+        paddingLeft: '0px'
       }}>
         {/* Top Left: Home Link */}
         <Link href="/" className="home-link-custom">
           &lt;&lt; HOME
         </Link>
-        
+
         {/* Bottom Left: Categories */}
         <ul style={{
           listStyleType: 'none',
@@ -99,7 +77,7 @@ export default function RetailStore() {
         }}>
           {['SUITS', 'SHIRTS', 'SHOES', 'SLIPPERS', 'KAFTANS', 'JACKETS'].map((item) => (
             <li key={item} style={{ marginBottom: '0px', lineHeight: '1.1' }}>
-              <Link href={`#${item.toLowerCase()}`} className="category-link">
+              <Link href={`/store/retail/${item.toLowerCase()}`} className="category-link">
                 {item}
               </Link>
             </li>
@@ -107,32 +85,15 @@ export default function RetailStore() {
         </ul>
       </div>
 
-      {/* Right Section with Image */}
+      {/* Right Section — Slideshow */}
       <div className="right-section" style={{
         width: '70%',
-        display: 'flex',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        overflow: 'hidden'
+        height: 'calc(100vh - 100px)', /* 100px = 50px top + 50px bottom padding */
+        position: 'relative',
+        overflow: 'hidden',
+        flexShrink: 0,
       }}>
-        <div className="marquee-wrapper">
-          <div className="marquee-content">
-            {[1, 2, 3, 4].map((idx) => (
-              <div key={idx} className="marquee-item">
-                <Image 
-                  src="/images/man-bag.png" 
-                  alt={`Retail Fashion ${idx}`} 
-                  fill
-                  style={{ 
-                    objectFit: 'contain',
-                    objectPosition: 'center'
-                  }}
-                  priority={idx <= 3}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+        <RetailSlideshow />
       </div>
     </div>
   );
