@@ -18,6 +18,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
     kaftans: '/images/sese_retail_jacket.png',
   };
   const categoryImage = CATEGORY_IMAGES[currentCategory] ?? '/images/man-bag.png';
+  const categoryAspect = currentCategory in CATEGORY_IMAGES ? '271 / 388' : '314 / 422';
 
   return (
     <div style={{
@@ -99,10 +100,14 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           vertical-align: middle;
         }
 
+        .mobile-cat-title {
+          display: none;
+        }
+
         /* Responsive */
         @media (max-width: 800px) {
           .top-bar {
-            padding: 24px 20px 10px 20px !important;
+            padding: 24px 20px 8px 20px !important;
             display: flex !important;
             align-items: center !important;
             position: relative !important;
@@ -115,20 +120,20 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             z-index: 2 !important;
           }
           .top-bar-right {
-            position: absolute !important;
-            left: 0 !important;
-            top: 0 !important;
-            bottom: 0 !important;
-            width: 100% !important;
-            padding-right: 0 !important;
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            pointer-events: none !important;
-            z-index: 1 !important;
+            display: none !important;
           }
-          .cat-title {
-            pointer-events: auto !important;
+          .mobile-cat-title {
+            display: block !important;
+            text-align: center !important;
+            font-family: var(--ui-sans, sans-serif) !important;
+            font-size: 9.5px !important;
+            font-weight: 400 !important;
+            letter-spacing: 1px !important;
+            line-height: 14px !important;
+            color: var(--menu-muted, #a0a0a0) !important;
+            text-transform: uppercase !important;
+            margin: 0 0 8px 0 !important;
+            flex-shrink: 0 !important;
           }
           .main-content-row {
             overflow: hidden !important;
@@ -140,40 +145,53 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           }
           .right-half {
             width: 100% !important;
-            padding: 10px 20px 10px 20px !important;
+            padding: 0 20px !important;
             height: 100% !important;
             flex: 1 !important;
             min-height: 0 !important;
             display: flex !important;
             flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
           }
           .panels {
             display: flex !important;
             flex-direction: row !important;
             gap: 8px !important;
-            margin-top: 0 !important;
-            flex: 1 !important;
-            min-height: 0 !important;
+            margin: 0 !important;
             width: 100% !important;
-            height: 100% !important;
+            height: auto !important;
+            flex: none !important;
+            min-height: 0 !important;
           }
           .panel {
             position: relative !important;
             flex: 1 !important;
             min-width: 0 !important;
-            height: 100% !important;
+            height: auto !important;
+            aspect-ratio: var(--panel-aspect, 271 / 388) !important;
           }
           .desktop-forward-btn {
             display: none !important;
           }
           .mobile-bottom-nav {
             display: flex !important;
-            justify-content: space-between !important;
+            justify-content: center !important;
             align-items: center !important;
+            gap: 84px !important;
             width: 100% !important;
             box-sizing: border-box !important;
-            padding: 16px 20px 28px 20px !important;
+            margin-top: 10px !important;
+            padding: 0 !important;
             flex-shrink: 0 !important;
+          }
+          .mobile-bottom-nav .side-btn {
+            font-family: var(--ui-sans, sans-serif) !important;
+            font-size: 9.5px !important;
+            color: var(--menu-muted, #a0a0a0) !important;
+            font-weight: 400 !important;
+            letter-spacing: 1px !important;
+            line-height: 14px !important;
           }
         }
       `}} />
@@ -218,6 +236,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           padding: '0 40px 30px 0',
           boxSizing: 'border-box',
         }}>
+          {/* Mobile Category Title - Centered above the two images */}
+          <div className="mobile-cat-title">
+            {displayName}
+          </div>
+
           {/* Two images side by side on the right half */}
           <div className="panels" style={{
             display: 'flex',
@@ -226,6 +249,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             flex: 1,
             minHeight: 0,
             width: '100%',
+            ['--panel-aspect' as string]: categoryAspect,
           }}>
             <div className="panel" style={{ position: 'relative', flex: 1, minWidth: 0, height: '100%' }}>
               <Image
@@ -259,13 +283,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           }}>
             <ForwardButton className="side-btn" />
           </div>
-        </div>
-      </div>
 
-      {/* Mobile nav: << and >> on the same line */}
-      <div className="mobile-bottom-nav" style={{ display: 'none' }}>
-        <BackButton className="side-btn" />
-        <ForwardButton className="side-btn" />
+          {/* Mobile nav: << and >> on the same line right under the images */}
+          <div className="mobile-bottom-nav" style={{ display: 'none' }}>
+            <BackButton className="side-btn" />
+            <ForwardButton className="side-btn" />
+          </div>
+        </div>
       </div>
     </div>
   );
