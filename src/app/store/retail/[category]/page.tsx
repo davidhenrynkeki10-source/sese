@@ -98,10 +98,23 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           color: var(--menu-muted, #a0a0a0);
           display: inline-block;
           vertical-align: middle;
+          text-transform: uppercase;
         }
 
         .mobile-cat-title {
           display: none;
+        }
+
+        .bottom-nav {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 84px;
+          width: 100%;
+          box-sizing: border-box;
+          margin-top: 24px;
+          padding: 0;
+          flex-shrink: 0;
         }
 
         /* Responsive */
@@ -171,21 +184,18 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             height: auto !important;
             aspect-ratio: var(--panel-aspect, 271 / 388) !important;
           }
-          .desktop-forward-btn {
-            display: none !important;
-          }
-          .mobile-bottom-nav {
+          .bottom-nav {
             display: flex !important;
             justify-content: center !important;
             align-items: center !important;
             gap: 84px !important;
             width: 100% !important;
             box-sizing: border-box !important;
-            margin-top: 10px !important;
+            margin-top: 24px !important;
             padding: 0 !important;
             flex-shrink: 0 !important;
           }
-          .mobile-bottom-nav .side-btn {
+          .bottom-nav .side-btn {
             font-family: var(--ui-sans, sans-serif) !important;
             font-size: 9.5px !important;
             color: var(--menu-muted, #a0a0a0) !important;
@@ -202,7 +212,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           <Link href="/store/retail" className="nav-link">&lt;&lt; Store</Link>
         </div>
         <div className="top-bar-right">
-          <span className="cat-title">{displayName}</span>
+          <span className="cat-title">{displayName.toUpperCase()}</span>
         </div>
       </div>
 
@@ -214,31 +224,24 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         minHeight: 0,
         width: '100%',
       }}>
-        {/* LEFT HALF OF PAGE (includes << button at bottom left) */}
+        {/* LEFT HALF OF PAGE */}
         <div className="left-half" style={{
           width: '50%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'flex-end',
-          padding: '0 0 35px 40px',
-        }}>
-          <div>
-            <BackButton className="side-btn" />
-          </div>
-        </div>
+        }} />
 
-        {/* RIGHT HALF OF PAGE (Images, then >> aligned before end of 2nd image) */}
+        {/* RIGHT HALF OF PAGE */}
         <div className="right-half" style={{
           width: '50%',
           display: 'flex',
           flexDirection: 'column',
+          justifyContent: 'center',
           height: '100%',
           padding: '0 40px 30px 0',
           boxSizing: 'border-box',
         }}>
           {/* Mobile Category Title - Centered above the two images */}
           <div className="mobile-cat-title">
-            {displayName}
+            {displayName.toUpperCase()}
           </div>
 
           {/* Two images side by side on the right half */}
@@ -246,12 +249,17 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             display: 'flex',
             flexDirection: 'row',
             gap: '8px',
-            flex: 1,
-            minHeight: 0,
             width: '100%',
             ['--panel-aspect' as string]: categoryAspect,
           }}>
-            <div className="panel" style={{ position: 'relative', flex: 1, minWidth: 0, height: '100%' }}>
+            <div className="panel" style={{
+              position: 'relative',
+              flex: 1,
+              minWidth: 0,
+              height: 'auto',
+              aspectRatio: categoryAspect,
+              maxHeight: 'calc(100vh - 160px)',
+            }}>
               <Image
                 src={categoryImage}
                 alt={`${displayName} – view 1`}
@@ -261,7 +269,14 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
                 priority
               />
             </div>
-            <div className="panel" style={{ position: 'relative', flex: 1, minWidth: 0, height: '100%' }}>
+            <div className="panel" style={{
+              position: 'relative',
+              flex: 1,
+              minWidth: 0,
+              height: 'auto',
+              aspectRatio: categoryAspect,
+              maxHeight: 'calc(100vh - 160px)',
+            }}>
               <Image
                 src={categoryImage}
                 alt={`${displayName} – view 2`}
@@ -273,19 +288,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             </div>
           </div>
 
-          {/* >> button before the end of the second image at the bottom on desktop */}
-          <div className="desktop-forward-btn" style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            paddingTop: '12px',
-            paddingRight: '12px',
-            flexShrink: 0,
-          }}>
-            <ForwardButton className="side-btn" />
-          </div>
-
-          {/* Mobile nav: << and >> on the same line right under the images */}
-          <div className="mobile-bottom-nav" style={{ display: 'none' }}>
+          {/* Nav arrows: << and >> centered under the images */}
+          <div className="bottom-nav">
             <BackButton className="side-btn" />
             <ForwardButton className="side-btn" />
           </div>
