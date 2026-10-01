@@ -15,8 +15,6 @@ export default function CategoryGallery({
   aspectRatio,
 }: CategoryGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [touchStartX, setTouchStartX] = useState<number | null>(null);
-
   const total = images.length;
 
   const handlePrev = useCallback(() => {
@@ -29,7 +27,7 @@ export default function CategoryGallery({
     setCurrentIndex((prev) => (prev + 1) % total);
   }, [total]);
 
-  // Keyboard navigation for convenience
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') {
@@ -41,25 +39,6 @@ export default function CategoryGallery({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handlePrev, handleNext]);
-
-  // Touch swipe support for mobile
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartX(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX === null) return;
-    const touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartX - touchEndX;
-    const minSwipeDistance = 40;
-
-    if (diff > minSwipeDistance) {
-      handleNext();
-    } else if (diff < -minSwipeDistance) {
-      handlePrev();
-    }
-    setTouchStartX(null);
-  };
 
   const primaryIndex = total > 0 ? ((currentIndex % total) + total) % total : 0;
   const secondaryIndex = total > 1 ? (((currentIndex + 1) % total) + total) % total : 0;
@@ -79,8 +58,6 @@ export default function CategoryGallery({
         padding: '0 40px 30px 0',
         boxSizing: 'border-box',
       }}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
     >
       {/* Mobile Category Title - Centered above the image */}
       <div className="mobile-cat-title">

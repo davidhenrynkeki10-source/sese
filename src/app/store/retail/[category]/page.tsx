@@ -175,7 +175,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         /* Responsive */
         @media (max-width: 800px) {
           .top-bar {
-            padding: 20px 20px 6px 20px !important;
+            padding: 16px 20px 0px 20px !important;
             display: flex !important;
             align-items: center !important;
             position: relative !important;
@@ -200,7 +200,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             line-height: 14px !important;
             color: var(--menu-muted, #a0a0a0) !important;
             text-transform: uppercase !important;
-            margin: 0 0 10px 0 !important;
+            margin: -8px 0 20px 0 !important;
             flex-shrink: 0 !important;
           }
           .main-content-row {
@@ -213,7 +213,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           }
           .right-half {
             width: 100% !important;
-            padding: 0 16px 16px 16px !important;
+            padding: 0 16px 20px 16px !important;
             height: 100% !important;
             flex: 1 !important;
             min-height: 0 !important;
@@ -237,7 +237,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           }
           .panel {
             position: relative !important;
-            height: min(48dvh, 330px) !important;
+            height: min(45dvh, 310px) !important;
             width: auto !important;
             max-width: 80vw !important;
             aspect-ratio: var(--panel-aspect, 271 / 388) !important;
@@ -254,8 +254,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             gap: 70px !important;
             width: 100% !important;
             box-sizing: border-box !important;
-            margin-top: 14px !important;
-            padding: 0 !important;
+            margin-top: 32px !important;
+            padding-bottom: 8px !important;
             flex-shrink: 0 !important;
           }
           .bottom-nav .side-btn {
