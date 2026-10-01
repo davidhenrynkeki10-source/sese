@@ -57,10 +57,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   const categoryAspect = ['suits', 'jackets', 'kaftans'].includes(currentCategory) ? '271 / 388' : '314 / 422';
 
   return (
-    <div style={{
+    <div className="page-root" style={{
       display: 'flex',
       flexDirection: 'column',
-      height: '100vh',
+      height: '100dvh',
       width: '100vw',
       boxSizing: 'border-box',
       backgroundColor: '#ffffff',
@@ -68,6 +68,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
       overflow: 'hidden',
     }}>
       <style dangerouslySetInnerHTML={{ __html: `
+        .page-root {
+          height: 100vh;
+          height: 100dvh;
+          overflow: hidden;
+        }
         .top-bar {
           display: flex;
           flex-direction: row;
@@ -170,7 +175,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         /* Responsive */
         @media (max-width: 800px) {
           .top-bar {
-            padding: 24px 20px 8px 20px !important;
+            padding: 20px 20px 6px 20px !important;
             display: flex !important;
             align-items: center !important;
             position: relative !important;
@@ -195,7 +200,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             line-height: 14px !important;
             color: var(--menu-muted, #a0a0a0) !important;
             text-transform: uppercase !important;
-            margin: 0 0 12px 0 !important;
+            margin: 0 0 10px 0 !important;
             flex-shrink: 0 !important;
           }
           .main-content-row {
@@ -208,7 +213,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           }
           .right-half {
             width: 100% !important;
-            padding: 0 20px 24px 20px !important;
+            padding: 0 16px 16px 16px !important;
             height: 100% !important;
             flex: 1 !important;
             min-height: 0 !important;
@@ -216,6 +221,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             flex-direction: column !important;
             justify-content: center !important;
             align-items: center !important;
+            overflow: hidden !important;
           }
           .panels {
             display: flex !important;
@@ -226,17 +232,17 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             margin: 0 !important;
             width: 100% !important;
             height: auto !important;
-            flex: 1 !important;
+            flex: 0 1 auto !important;
             min-height: 0 !important;
           }
           .panel {
             position: relative !important;
-            width: 100% !important;
-            max-width: 360px !important;
-            height: auto !important;
+            height: min(48dvh, 330px) !important;
+            width: auto !important;
+            max-width: 80vw !important;
             aspect-ratio: var(--panel-aspect, 271 / 388) !important;
-            max-height: calc(100vh - 190px) !important;
             margin: 0 auto !important;
+            flex: none !important;
           }
           .panel-secondary {
             display: none !important;
@@ -245,10 +251,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             display: flex !important;
             justify-content: center !important;
             align-items: center !important;
-            gap: 84px !important;
+            gap: 70px !important;
             width: 100% !important;
             box-sizing: border-box !important;
-            margin-top: 18px !important;
+            margin-top: 14px !important;
             padding: 0 !important;
             flex-shrink: 0 !important;
           }
