@@ -21,40 +21,64 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
+type SlotState = 'active' | 'sliding-in' | 'sliding-out' | 'idle';
+
 export default function RetailSlideshow() {
   const [images, setImages] = useState<string[]>(SLIDES);
-  const [current, setCurrent] = useState(0);
-  const [next, setNext] = useState<number | null>(null);
-  // phase: 'idle' | 'sliding'
-  const [sliding, setSliding] = useState(false);
+  const [imgIndex, setImgIndex] = useState(0);
+
+  // Two alternating slots to ensure seamless transitions with zero flicker or backward slide
+  const [activeSlot, setActiveSlot] = useState<0 | 1>(0);
+  const [slotImages, setSlotImages] = useState<[string, string]>([SLIDES[0], '']);
+  const [slotStates, setSlotStates] = useState<[SlotState, SlotState]>(['active', 'idle']);
+
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Shuffle once on mount
   useEffect(() => {
-    setImages(shuffle(SLIDES));
+    const shuffled = shuffle(SLIDES);
+    setImages(shuffled);
+    setSlotImages([shuffled[0], '']);
   }, []);
 
-  // Kick off a slide every 4 s
+  // Trigger slide transition every 4s when idle
   useEffect(() => {
+    if (slotStates[activeSlot] !== 'active') return;
+
     timeoutRef.current = setTimeout(() => {
-      const nextIdx = (current + 1) % images.length;
-      setNext(nextIdx);
-      // Trigger a reflow so the browser registers the starting position
-      // before we apply the sliding class. We do this in the next frame.
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => setSliding(true));
+      const nextIdx = (imgIndex + 1) % images.length;
+      const nextImage = images[nextIdx];
+      const incomingSlot = activeSlot === 0 ? 1 : 0;
+
+      setImgIndex(nextIdx);
+      setSlotImages((prev) => {
+        const updated: [string, string] = [...prev];
+        updated[incomingSlot] = nextImage;
+        return updated;
+      });
+      setSlotStates((prev) => {
+        const updated: [SlotState, SlotState] = [...prev];
+        updated[activeSlot] = 'sliding-out';
+        updated[incomingSlot] = 'sliding-in';
+        return updated;
       });
     }, 4000);
+
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [current, images.length]);
+  }, [activeSlot, slotStates, imgIndex, images]);
 
-  const handleTransitionEnd = () => {
-    if (next !== null) {
-      setCurrent(next);
-      setNext(null);
-      setSliding(false);
+  const handleAnimationEnd = (slot: 0 | 1) => {
+    if (slotStates[slot] === 'sliding-in') {
+      const outgoingSlot = slot === 0 ? 1 : 0;
+      setActiveSlot(slot);
+      setSlotStates((prev) => {
+        const updated: [SlotState, SlotState] = [...prev];
+        updated[slot] = 'active';
+        updated[outgoingSlot] = 'idle';
+        return updated;
+      });
     }
   };
 
@@ -67,48 +91,79 @@ export default function RetailSlideshow() {
           position: relative;
           overflow: hidden;
         }
-        .ss-slide {
+
+        .ss-slot {
           position: absolute;
           inset: 0;
           will-change: transform;
-          transition: transform 2s ease-in-out;
         }
-        /* Current slide idles at 0; when sliding, exits to the RIGHT */
-        .ss-current { transform: translateX(0%); }
-        .ss-current.ss-sliding { transform: translateX(100%); }
 
-        /* Incoming slide starts off-LEFT; when sliding, lands at 0 */
-        .ss-next { transform: translateX(-100%); }
-        .ss-next.ss-sliding { transform: translateX(0%); }
+        .ss-slot-active {
+          transform: translateX(0%);
+          z-index: 1;
+          display: block;
+        }
+
+        .ss-slot-sliding-out {
+          animation: slideOutToRight 2s ease-in-out forwards;
+          z-index: 1;
+          display: block;
+        }
+
+        .ss-slot-sliding-in {
+          animation: slideInFromLeft 2s ease-in-out forwards;
+          z-index: 2;
+          display: block;
+        }
+
+        .ss-slot-idle {
+          display: none;
+        }
+
+        @keyframes slideOutToRight {
+          0% {
+            transform: translateX(0%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
+
+        @keyframes slideInFromLeft {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(0%);
+          }
+        }
       `}</style>
 
       <div className="ss-root">
-        {/* Current slide */}
-        <div
-          className={`ss-slide ss-current${sliding ? ' ss-sliding' : ''}`}
-          onTransitionEnd={handleTransitionEnd}
-        >
-          <Image
-            src={images[current]}
-            alt={`SESE collection ${current + 1}`}
-            fill
-            style={{ objectFit: 'contain', objectPosition: 'center' }}
-            priority
-          />
-        </div>
+        {([0, 1] as const).map((slot) => {
+          const state = slotStates[slot];
+          const src = slotImages[slot];
+          if (!src || state === 'idle') return null;
 
-        {/* Incoming slide — only rendered when a transition is queued */}
-        {next !== null && (
-          <div className={`ss-slide ss-next${sliding ? ' ss-sliding' : ''}`}>
-            <Image
-              src={images[next]}
-              alt={`SESE collection ${next + 1}`}
-              fill
-              style={{ objectFit: 'contain', objectPosition: 'center' }}
-            />
-          </div>
-        )}
+          return (
+            <div
+              key={slot}
+              className={`ss-slot ss-slot-${state}`}
+              onAnimationEnd={() => handleAnimationEnd(slot)}
+            >
+              <Image
+                src={src}
+                alt="SESE retail collection"
+                fill
+                style={{ objectFit: 'contain', objectPosition: 'center' }}
+                priority
+              />
+            </div>
+          );
+        })}
       </div>
     </>
   );
 }
+
+
