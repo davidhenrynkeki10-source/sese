@@ -1,8 +1,50 @@
 import Link from 'next/link';
-import Image from 'next/image';
-import { BackButton, ForwardButton } from './HistoryNav';
+import fs from 'fs';
+import path from 'path';
+import CategoryGallery from './CategoryGallery';
 
 const CATEGORIES = ['suits', 'shirts', 'shoes', 'slippers', 'kaftans', 'jackets'];
+
+function getCategoryImages(category: string): string[] {
+  const cat = category.toLowerCase();
+  const imagesDir = path.join(process.cwd(), 'public', 'images');
+
+  // 1. Check if public/images folder exists matching category name case-insensitively
+  if (fs.existsSync(imagesDir)) {
+    try {
+      const entries = fs.readdirSync(imagesDir, { withFileTypes: true });
+      const match = entries.find((e) => e.isDirectory() && e.name.toLowerCase() === cat);
+      if (match) {
+        const folderPath = path.join(imagesDir, match.name);
+        const files = fs.readdirSync(folderPath)
+          .filter((f) => /\.(jpe?g|png|webp|avif|gif|svg)$/i.test(f))
+          .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }))
+          .map((f) => `/images/${match.name}/${f}`);
+        if (files.length > 0) {
+          return files;
+        }
+      }
+    } catch {
+      // Fallback if readdir fails
+    }
+  }
+
+  // 2. Predefined fallback mapping
+  const CATEGORY_DEFAULTS: Record<string, string[]> = {
+    suits: [
+      '/images/SUITS/sese_suit1.jpg',
+      '/images/SUITS/sese_suit2.jpg',
+    ],
+    jackets: ['/images/sese_retail_jacket.png'],
+    kaftans: ['/images/sese_retail_jacket.png'],
+  };
+
+  if (CATEGORY_DEFAULTS[cat]) {
+    return CATEGORY_DEFAULTS[cat];
+  }
+
+  return ['/images/man-bag.png'];
+}
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
@@ -11,14 +53,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   if (currentIndex === -1) currentIndex = 0;
 
   const displayName = currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1);
-
-  const CATEGORY_IMAGES: Record<string, string> = {
-    suits:   '/images/sese_retail_jacket.png',
-    jackets: '/images/sese_retail_jacket.png',
-    kaftans: '/images/sese_retail_jacket.png',
-  };
-  const categoryImage = CATEGORY_IMAGES[currentCategory] ?? '/images/man-bag.png';
-  const categoryAspect = currentCategory in CATEGORY_IMAGES ? '271 / 388' : '314 / 422';
+  const images = getCategoryImages(currentCategory);
+  const categoryAspect = ['suits', 'jackets', 'kaftans'].includes(currentCategory) ? '271 / 388' : '314 / 422';
 
   return (
     <div style={{
@@ -87,9 +123,14 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          transition: transform 0.2s ease;
+          transition: transform 0.2s ease, color 0.2s ease;
+          user-select: none;
+          -webkit-user-select: none;
         }
-        .side-btn:hover { transform: scale(1.18); }
+        .side-btn:hover {
+          transform: scale(1.18);
+          color: #000000;
+        }
 
         .cat-title {
           font-size: 9.5px;
@@ -115,6 +156,15 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           margin-top: 24px;
           padding: 0;
           flex-shrink: 0;
+        }
+
+        @keyframes galleryFadeIn {
+          from { opacity: 0.7; }
+          to { opacity: 1; }
+        }
+
+        .gallery-image {
+          animation: galleryFadeIn 0.2s ease-out;
         }
 
         /* Responsive */
@@ -145,7 +195,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             line-height: 14px !important;
             color: var(--menu-muted, #a0a0a0) !important;
             text-transform: uppercase !important;
-            margin: 0 0 8px 0 !important;
+            margin: 0 0 12px 0 !important;
             flex-shrink: 0 !important;
           }
           .main-content-row {
@@ -158,7 +208,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           }
           .right-half {
             width: 100% !important;
-            padding: 0 20px !important;
+            padding: 0 20px 24px 20px !important;
             height: 100% !important;
             flex: 1 !important;
             min-height: 0 !important;
@@ -170,19 +220,26 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           .panels {
             display: flex !important;
             flex-direction: row !important;
-            gap: 8px !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 0 !important;
             margin: 0 !important;
             width: 100% !important;
             height: auto !important;
-            flex: none !important;
+            flex: 1 !important;
             min-height: 0 !important;
           }
           .panel {
             position: relative !important;
-            flex: 1 !important;
-            min-width: 0 !important;
+            width: 100% !important;
+            max-width: 360px !important;
             height: auto !important;
             aspect-ratio: var(--panel-aspect, 271 / 388) !important;
+            max-height: calc(100vh - 190px) !important;
+            margin: 0 auto !important;
+          }
+          .panel-secondary {
+            display: none !important;
           }
           .bottom-nav {
             display: flex !important;
@@ -191,7 +248,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             gap: 84px !important;
             width: 100% !important;
             box-sizing: border-box !important;
-            margin-top: 24px !important;
+            margin-top: 18px !important;
             padding: 0 !important;
             flex-shrink: 0 !important;
           }
@@ -229,71 +286,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           width: '50%',
         }} />
 
-        {/* RIGHT HALF OF PAGE */}
-        <div className="right-half" style={{
-          width: '50%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          height: '100%',
-          padding: '0 40px 30px 0',
-          boxSizing: 'border-box',
-        }}>
-          {/* Mobile Category Title - Centered above the two images */}
-          <div className="mobile-cat-title">
-            {displayName.toUpperCase()}
-          </div>
-
-          {/* Two images side by side on the right half */}
-          <div className="panels" style={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: '8px',
-            width: '100%',
-            ['--panel-aspect' as string]: categoryAspect,
-          }}>
-            <div className="panel" style={{
-              position: 'relative',
-              flex: 1,
-              minWidth: 0,
-              height: 'auto',
-              aspectRatio: categoryAspect,
-              maxHeight: 'calc(100vh - 160px)',
-            }}>
-              <Image
-                src={categoryImage}
-                alt={`${displayName} – view 1`}
-                fill
-                sizes="(max-width: 800px) 50vw, 25vw"
-                style={{ objectFit: 'contain', objectPosition: 'center' }}
-                priority
-              />
-            </div>
-            <div className="panel" style={{
-              position: 'relative',
-              flex: 1,
-              minWidth: 0,
-              height: 'auto',
-              aspectRatio: categoryAspect,
-              maxHeight: 'calc(100vh - 160px)',
-            }}>
-              <Image
-                src={categoryImage}
-                alt={`${displayName} – view 2`}
-                fill
-                sizes="(max-width: 800px) 50vw, 25vw"
-                style={{ objectFit: 'contain', objectPosition: 'center' }}
-                priority
-              />
-            </div>
-          </div>
-
-          {/* Nav arrows: << and >> centered under the images */}
-          <div className="bottom-nav">
-            <BackButton className="side-btn" />
-            <ForwardButton className="side-btn" />
-          </div>
-        </div>
+        {/* RIGHT HALF OF PAGE: Interactive photo gallery */}
+        <CategoryGallery
+          displayName={displayName}
+          images={images}
+          aspectRatio={categoryAspect}
+        />
       </div>
     </div>
   );
