@@ -452,15 +452,13 @@ section {
   box-shadow: 25px 28px 22px #4d40323d;
 }
 
-/* Minimal page overrides for the requested design */
+
 :root {
   --ui-sans: Avenir, "Avenir Next", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --menu-muted: #d7d7d7;
-  /* light grey to blend with white */
+  --menu-muted: #b0b0b0;
+  /* elegant light silver color */
   --menu-sky: #4fc3ff;
-  /* sky blue for cart */
   --hero-red: #7a1f22;
-  /* deep red rectangle */
 }
 
 .site-header.minimal {
@@ -504,28 +502,37 @@ section {
 
 .minimal-nav .nav-item {
   color: var(--menu-muted);
+  font-weight: 500;
   text-decoration: none;
   text-transform: none;
   flex-shrink: 0;
   display: inline-block;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease;
 }
 
 .minimal-nav .nav-item:hover {
   transform: scale(1.18);
   opacity: 1;
+  color: #111111;
 }
 
 .minimal-nav .nav-item.about {
   text-transform: uppercase;
   color: var(--menu-muted);
+  font-weight: 500;
 }
 
 .minimal-nav .nav-item.store {
   color: var(--menu-muted);
+  font-weight: 500;
 }
 
 .minimal-nav .nav-item.cart {
+  color: var(--menu-sky);
+  font-weight: 500;
+}
+
+.minimal-nav .nav-item.cart:hover {
   color: var(--menu-sky);
 }
 
@@ -534,9 +541,11 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 50;
 }
 
-.store-subtabs {
+.store-subtabs,
+.about-subtabs {
   position: absolute;
   top: 100%;
   left: 50%;
@@ -544,26 +553,27 @@ section {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding-top: 6px;
+  padding-top: 8px;
   align-items: center;
+  z-index: 100;
+  pointer-events: auto;
+}
+
+.store-subtabs::before,
+.about-subtabs::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: -24px;
+  right: -24px;
+  height: 14px;
 }
 
 .store-subtabs .nav-item,
 .about-subtabs .nav-item {
   white-space: nowrap;
   font-size: 10px;
-}
-
-.about-subtabs {
-  position: absolute;
-  top: 99%;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding-top: 6px;
-  align-items: center;
+  font-weight: 500;
 }
 
 .minimal-hero {
@@ -576,14 +586,18 @@ section {
 
 .hero-rect {
   width: 240px;
-  height: calc(100svh - 140px);
+  max-width: 80vw;
+  aspect-ratio: 500 / 994;
+  height: auto;
+  max-height: calc(100vh - 100px);
+  max-height: calc(100dvh - 100px);
   margin-top: 46px;
   margin-left: 5.5%;
   margin-right: auto;
-  background: var(--hero-red);
+  background: transparent;
   position: relative;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .hero-wordmark {
@@ -3188,6 +3202,7 @@ dialog::backdrop {
     line-height: 1.2 !important;
     font-family: "Avenir", "Avenir Next", system-ui, -apple-system, sans-serif !important;
     font-size: 11px !important;
+    font-weight: 500 !important;
     text-align: center !important;
     border: none !important;
     background: none !important;
@@ -3216,5 +3231,86 @@ dialog::backdrop {
   .site-header.minimal nav.minimal-nav .store-subtabs .nav-item,
   .site-header.minimal nav.minimal-nav .about-subtabs .nav-item {
     font-size: 10px !important;
+  }
+}
+
+/* Print styles to preserve exact screen layout, positions, and colors */
+@media print {
+  @page {
+    size: auto;
+    margin: 0;
+  }
+
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  .skip-link,
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+
+  .site-header.minimal {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 92px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    background: transparent !important;
+    padding-right: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .site-header nav.minimal-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 50px !important;
+    padding: 26px 5.5% !important;
+    padding-right: 5.5% !important;
+    margin-left: auto !important;
+    font-size: 11px !important;
+    align-items: center !important;
+  }
+
+  .minimal-hero {
+    min-height: 100vh !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: flex-start !important;
+    background: #ffffff !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .hero-rect {
+    width: 240px !important;
+    aspect-ratio: 500 / 994 !important;
+    height: 477px !important;
+    margin-top: 46px !important;
+    margin-left: 5.5% !important;
+    margin-right: auto !important;
+    background: transparent !important;
+    position: relative !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 }

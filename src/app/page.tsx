@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import { SiteNavigation } from "@/components/interactive";
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
                     src="/images/sese-logo.png"
                     alt="SéSé Logo"
                     fill
-                    style={{ objectFit: 'contain', objectPosition: 'left' }}
+                    style={{ objectFit: 'contain', objectPosition: 'left top' }}
                     priority
                 />
             </div>

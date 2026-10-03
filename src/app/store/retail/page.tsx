@@ -16,10 +16,11 @@ export default function RetailStore() {
         .category-link {
           text-decoration: none;
           color: var(--menu-muted);
+          font-weight: 500;
           font-size: 9.5px;
           letter-spacing: 0.5px;
           display: inline-block;
-          transition: transform 0.2s ease, opacity 0.2s ease;
+          transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease;
           transform-origin: left center;
           font-family: var(--ui-sans);
           text-transform: none;
@@ -27,19 +28,22 @@ export default function RetailStore() {
         .category-link:hover {
           transform: scale(1.18);
           opacity: 1;
+          color: #000000;
         }
         .home-link-custom {
           text-decoration: none;
           color: var(--menu-muted);
+          font-weight: 500;
           font-size: 9.5px;
           letter-spacing: 1px;
           text-transform: uppercase;
-          transition: transform 0.2s ease, opacity 0.2s ease;
+          transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease;
           font-family: var(--ui-sans);
         }
         .home-link-custom:hover {
           transform: scale(1.18);
           opacity: 1;
+          color: #000000;
         }
 
         /* Mobile Adjustments */
@@ -88,7 +92,7 @@ export default function RetailStore() {
       {/* Right Section — Slideshow */}
       <div className="right-section" style={{
         width: '70%',
-        height: 'calc(100vh - 100px)', /* 100px = 50px top + 50px bottom padding */
+        height: 'calc(100vh - 100px)', 
         position: 'relative',
         overflow: 'hidden',
         flexShrink: 0,

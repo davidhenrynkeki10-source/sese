@@ -84,17 +84,21 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           position: relative;
         }
 
-        .top-bar-left {
-          width: 50%;
-          display: flex;
-          align-items: center;
-          padding-left: 40px;
-          box-sizing: border-box;
-          flex-shrink: 0;
+        .store-center-link {
+          position: absolute;
+          right: calc(50% + 28px);
+          z-index: 10;
+          white-space: nowrap;
+          transform-origin: right center;
+        }
+        .store-center-link:hover {
+          transform: scale(1.18);
+          color: #000000;
         }
 
         .top-bar-right {
           width: 50%;
+          margin-left: auto;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -104,23 +108,28 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 
         .nav-link {
           text-decoration: none;
-          color: var(--menu-muted, #a0a0a0);
+          color: var(--menu-muted, #b0b0b0);
+          font-weight: 500;
           font-size: 9.5px;
           line-height: 14px;
           letter-spacing: 1px;
           text-transform: uppercase;
-          transition: transform 0.2s ease, opacity 0.2s ease;
+          transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease;
           font-family: var(--ui-sans, sans-serif);
           display: inline-block;
           vertical-align: middle;
         }
-        .nav-link:hover { transform: scale(1.18); }
+        .nav-link:hover {
+          transform: scale(1.18);
+          color: #000000;
+        }
 
         .side-btn {
           background: none;
           border: none;
           cursor: pointer;
-          color: var(--menu-muted, #a0a0a0);
+          color: var(--menu-muted, #b0b0b0);
+          font-weight: 700;
           font-size: 9.5px;
           line-height: 14px;
           letter-spacing: 1px;
@@ -141,7 +150,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           font-size: 9.5px;
           line-height: 14px;
           letter-spacing: 1px;
-          color: var(--menu-muted, #a0a0a0);
+          color: var(--menu-muted, #b0b0b0);
+          font-weight: 500;
           display: inline-block;
           vertical-align: middle;
           text-transform: uppercase;
@@ -177,15 +187,22 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           .top-bar {
             padding: 16px 20px 0px 20px !important;
             display: flex !important;
+            justify-content: center !important;
             align-items: center !important;
             position: relative !important;
             width: 100% !important;
             box-sizing: border-box !important;
           }
-          .top-bar-left {
-            width: auto !important;
-            padding-left: 0 !important;
+          .store-center-link {
+            position: static !important;
+            transform: none !important;
+            display: block !important;
+            text-align: center !important;
+            margin: 0 auto !important;
             z-index: 2 !important;
+          }
+          .store-center-link:hover {
+            transform: scale(1.18) !important;
           }
           .top-bar-right {
             display: none !important;
@@ -195,10 +212,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             text-align: center !important;
             font-family: var(--ui-sans, sans-serif) !important;
             font-size: 9.5px !important;
-            font-weight: 400 !important;
+            font-weight: 500 !important;
             letter-spacing: 1px !important;
             line-height: 14px !important;
-            color: var(--menu-muted, #a0a0a0) !important;
+            color: var(--menu-muted, #b0b0b0) !important;
             text-transform: uppercase !important;
             margin: -8px 0 20px 0 !important;
             flex-shrink: 0 !important;
@@ -261,8 +278,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           .bottom-nav .side-btn {
             font-family: var(--ui-sans, sans-serif) !important;
             font-size: 9.5px !important;
-            color: var(--menu-muted, #a0a0a0) !important;
-            font-weight: 400 !important;
+            color: var(--menu-muted, #b0b0b0) !important;
+            font-weight: 700 !important;
             letter-spacing: 1px !important;
             line-height: 14px !important;
           }
@@ -271,9 +288,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 
       {/* ── TOP BAR ── */}
       <div className="top-bar">
-        <div className="top-bar-left">
-          <Link href="/store/retail" className="nav-link">&lt;&lt; Store</Link>
-        </div>
+        <Link href="/store/retail" className="nav-link store-center-link">&lt;&lt; Store</Link>
         <div className="top-bar-right">
           <span className="cat-title">{displayName.toUpperCase()}</span>
         </div>
