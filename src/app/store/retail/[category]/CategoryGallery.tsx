@@ -50,12 +50,13 @@ export default function CategoryGallery({
     <div
       className="right-half"
       style={{
-        width: '50%',
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
+        alignItems: 'center',
         height: '100%',
-        padding: '0 40px 30px 0',
+        padding: '0 40px 30px 40px',
         boxSizing: 'border-box',
       }}
     >
@@ -72,6 +73,7 @@ export default function CategoryGallery({
           flexDirection: 'row',
           gap: '8px',
           width: '100%',
+          maxWidth: '50vw',
           ['--panel-aspect' as string]: aspectRatio,
         }}
       >

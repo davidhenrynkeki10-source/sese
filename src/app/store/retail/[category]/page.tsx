@@ -85,11 +85,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         }
 
         .store-center-link {
-          position: absolute;
-          right: calc(50% + 28px);
+          padding-left: 28px;
           z-index: 10;
           white-space: nowrap;
-          transform-origin: right center;
         }
         .store-center-link:hover {
           transform: scale(1.18);
@@ -97,13 +95,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         }
 
         .top-bar-right {
-          width: 50%;
-          margin-left: auto;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
           display: flex;
           justify-content: center;
           align-items: center;
-          padding-right: 40px;
-          box-sizing: border-box;
+          pointer-events: none;
         }
 
         .nav-link {
@@ -187,18 +185,14 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           .top-bar {
             padding: 16px 20px 0px 20px !important;
             display: flex !important;
-            justify-content: center !important;
+            justify-content: flex-start !important;
             align-items: center !important;
             position: relative !important;
             width: 100% !important;
             box-sizing: border-box !important;
           }
           .store-center-link {
-            position: static !important;
-            transform: none !important;
-            display: block !important;
-            text-align: center !important;
-            margin: 0 auto !important;
+            padding-left: 0 !important;
             z-index: 2 !important;
           }
           .store-center-link:hover {
@@ -302,12 +296,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         minHeight: 0,
         width: '100%',
       }}>
-        {/* LEFT HALF OF PAGE */}
-        <div className="left-half" style={{
-          width: '50%',
-        }} />
-
-        {/* RIGHT HALF OF PAGE: Interactive photo gallery */}
+        {/* FULL WIDTH: Interactive photo gallery */}
         <CategoryGallery
           displayName={displayName}
           images={images}
