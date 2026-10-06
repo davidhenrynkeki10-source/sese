@@ -4,25 +4,27 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 export function Motion() {
-  const mounted = useRef(false);
-  useEffect(() => {
+  const mounted = useRef(false); 
+  useEffect(() => { 
     if (
       mounted.current ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     )
       return;
     mounted.current = true;
+
     gsap.registerPlugin(ScrollTrigger);
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const lenis = new Lenis({
-      duration: isSafari ? 1.4 : 1.05,
+      duration: isSafari ? 1.4 : 1.05, 
       anchors: true,
       touchMultiplier: isSafari ? 1 : undefined,
+
     });
     const tick = (time: number) => lenis.raf(time * 1000);
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add(tick);
-    const context = gsap.context(() => {
+    const context = gsap.context(() => { 
       gsap.from(".hero-reveal", {
         y: 42,
         opacity: 0,

@@ -94,7 +94,10 @@ export default function RetailSlideshow() {
 
         .ss-slot {
           position: absolute;
-          inset: 0;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
           will-change: transform;
         }
 
@@ -105,12 +108,14 @@ export default function RetailSlideshow() {
         }
 
         .ss-slot-sliding-out {
+          -webkit-animation: slideOutToRight 2s ease-in-out forwards;
           animation: slideOutToRight 2s ease-in-out forwards;
           z-index: 1;
           display: block;
         }
 
         .ss-slot-sliding-in {
+          -webkit-animation: slideInFromLeft 2s ease-in-out forwards;
           animation: slideInFromLeft 2s ease-in-out forwards;
           z-index: 2;
           display: block;
@@ -120,6 +125,10 @@ export default function RetailSlideshow() {
           display: none;
         }
 
+        @-webkit-keyframes slideOutToRight {
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(100%); }
+        }
         @keyframes slideOutToRight {
           0% {
             transform: translateX(0%);
@@ -129,6 +138,10 @@ export default function RetailSlideshow() {
           }
         }
 
+        @-webkit-keyframes slideInFromLeft {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(0%); }
+        }
         @keyframes slideInFromLeft {
           0% {
             transform: translateX(-100%);

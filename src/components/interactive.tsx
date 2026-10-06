@@ -75,15 +75,17 @@ export function SiteNavigation() {
     };
 
     useEffect(() => {
-        const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+        const handleClickOutside = (e: Event) => {
             if (navRef.current && !navRef.current.contains(e.target as Node)) {
                 setClickedTab(null);
                 setHoveredTab(null);
             }
         };
-        document.addEventListener("pointerdown", handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("touchstart", handleClickOutside);
         return () => {
-            document.removeEventListener("pointerdown", handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
             if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
             if (leaveTimeoutRef.current) clearTimeout(leaveTimeoutRef.current);
         };
