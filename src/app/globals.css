@@ -247,6 +247,7 @@ section {
 .hero {
   position: relative;
   min-height: 760px;
+  height: 100vh;
   height: 100svh;
   max-height: 1100px;
   padding-top: 92px;
@@ -292,17 +293,16 @@ section {
 
 .hero-bottom .arrow-link {
   margin-top: 22px;
-
-  .hero-rect .hero-bg {
-    display: none;
-  }
-
-  .hero-rect .hero-bar {
-    display: none;
-  }
-
   min-width: 235px;
   color: var(--wine);
+}
+
+.hero-bottom .arrow-link .hero-rect .hero-bg {
+  display: none;
+}
+
+.hero-bottom .arrow-link .hero-rect .hero-bar {
+  display: none;
 }
 
 .hero-art {
@@ -577,6 +577,7 @@ section {
 }
 
 .minimal-hero {
+  min-height: 100vh;
   min-height: 100svh;
   display: flex;
   justify-content: flex-end;
@@ -614,6 +615,7 @@ section {
   /* Mobile: show compact vertical bar over a pale square, centered lower on the page */
   .hero-rect {
     width: 160px;
+    height: calc(100vh - 18vh - 44px);
     height: calc(100svh - 18vh - 44px);
     margin: calc(18vh + 44px) auto 0;
     background: transparent;
@@ -1350,6 +1352,7 @@ dialog {
   color: var(--ink);
   border: 0;
   padding: 0;
+  max-height: 90vh;
   max-height: 90svh;
   max-width: calc(100% - 32px);
   margin: auto;
@@ -1357,6 +1360,7 @@ dialog {
 
 dialog::backdrop {
   background: #1c1110a6;
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
 }
 
@@ -2065,7 +2069,9 @@ dialog::backdrop {
     padding: 35px 25px;
     max-width: 100%;
     width: 100%;
+    max-height: 100vh;
     max-height: 100svh;
+    min-height: 100vh;
     min-height: 100svh;
   }
 
@@ -2104,6 +2110,7 @@ dialog::backdrop {
   }
 
   .preview-dialog {
+    max-height: 90vh;
     max-height: 90svh;
   }
 
@@ -2239,6 +2246,7 @@ dialog::backdrop {
 
 .shop-hero {
   min-height: 680px;
+  height: min(100vh, 900px);
   height: min(100svh, 900px);
   grid-template-columns: 47% 53%;
   background: var(--ivory)

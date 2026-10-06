@@ -48,8 +48,8 @@ function getCategoryImages(category: string): string[] {
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
-  const currentCategory = category.toLowerCase();
-  let currentIndex = CATEGORIES.indexOf(currentCategory);
+  const currentCategory = category.toLowerCase(); 
+  let currentIndex = CATEGORIES.indexOf(currentCategory); 
   if (currentIndex === -1) currentIndex = 0;
 
   const displayName = currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1);
@@ -58,9 +58,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 
   return (
     <div className="page-root" style={{
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100dvh',
+      display: 'flex', 
+      flexDirection: 'column', 
+      height: '100dvh', 
       width: '100vw',
       boxSizing: 'border-box',
       backgroundColor: '#ffffff',

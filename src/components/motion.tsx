@@ -13,7 +13,12 @@ export function Motion() {
       return;
     mounted.current = true;
     gsap.registerPlugin(ScrollTrigger);
-    const lenis = new Lenis({ duration: 1.05, anchors: true });
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const lenis = new Lenis({
+      duration: isSafari ? 1.4 : 1.05,
+      anchors: true,
+      touchMultiplier: isSafari ? 1 : undefined,
+    });
     const tick = (time: number) => lenis.raf(time * 1000);
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add(tick);
