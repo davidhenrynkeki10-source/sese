@@ -163,10 +163,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           display: flex;
           justify-content: center;
           align-items: center;
-          gap: 84px;
+          gap: 8px;
           width: 100%;
           box-sizing: border-box;
-          margin-top: 24px;
+          margin-top: 10px;
           padding: 0;
           flex-shrink: 0;
         }
@@ -211,7 +211,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             line-height: 14px !important;
             color: var(--menu-muted, #b0b0b0) !important;
             text-transform: uppercase !important;
-            margin: -8px 0 20px 0 !important;
+            margin: -20px 0 70px 0 !important;
             flex-shrink: 0 !important;
           }
           .main-content-row {
@@ -262,10 +262,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             display: flex !important;
             justify-content: center !important;
             align-items: center !important;
-            gap: 70px !important;
+            gap: 8px !important;
             width: 100% !important;
+            max-width: none !important;
             box-sizing: border-box !important;
-            margin-top: 32px !important;
+            margin-top: 12px !important;
             padding-bottom: 8px !important;
             flex-shrink: 0 !important;
           }

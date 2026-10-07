@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
+import { hasNonStaticMethods } from "next/dist/server/route-modules/app-route/module";
 export function Motion() {
   const mounted = useRef(false); 
   useEffect(() => { 
@@ -25,7 +26,7 @@ export function Motion() {
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add(tick);
     const context = gsap.context(() => { 
-      gsap.from(".hero-reveal", {
+      gsap.from(".hero-reveal", { 
         y: 42,
         opacity: 0,
         duration: 1.3,
@@ -59,7 +60,10 @@ export function Motion() {
       gsap.ticker.remove(tick);
       lenis.destroy();
       mounted.current = false;
-    };
+    }; 
   }, []);
-  return null;
+  return null; 
 }
+
+
+
