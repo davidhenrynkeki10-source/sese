@@ -53,13 +53,18 @@ export default function CategoryGallery({
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         height: '100%',
-        padding: '0 40px 30px 40px',
+        padding: '28px 40px 30px 40px',
         boxSizing: 'border-box',
       }}
     >
+      {/* Desktop Category Title - above images */}
+      <div className="desktop-cat-title">
+        {displayName.toUpperCase()}
+      </div>
+
       {/* Mobile Category Title - Centered above the image */}
       <div className="mobile-cat-title">
         {displayName.toUpperCase()}
@@ -73,7 +78,9 @@ export default function CategoryGallery({
           flexDirection: 'row',
           gap: '8px',
           width: '100%',
-          maxWidth: '50vw',
+          maxWidth: '55vw',
+          height: 'calc(100vh - 280px)',
+          maxHeight: '620px',
           ['--panel-aspect' as string]: aspectRatio,
         }}
       >
@@ -84,9 +91,7 @@ export default function CategoryGallery({
             position: 'relative',
             flex: 1,
             minWidth: 0,
-            height: 'auto',
-            aspectRatio: aspectRatio,
-            maxHeight: 'calc(100vh - 160px)',
+            height: '100%',
           }}
         >
           <Image
@@ -96,8 +101,8 @@ export default function CategoryGallery({
             fill
             sizes="(max-width: 800px) 90vw, 25vw"
             style={{
-              objectFit: 'fill',
-              objectPosition: 'center',
+              objectFit: 'cover',
+              objectPosition: 'center top',
             }}
             className="gallery-image"
             priority
@@ -111,9 +116,7 @@ export default function CategoryGallery({
             position: 'relative',
             flex: 1,
             minWidth: 0,
-            height: 'auto',
-            aspectRatio: aspectRatio,
-            maxHeight: 'calc(100vh - 160px)',
+            height: '100%',
           }}
         >
           <Image
@@ -123,8 +126,8 @@ export default function CategoryGallery({
             fill
             sizes="(max-width: 800px) 0vw, 25vw"
             style={{
-              objectFit: 'fill',
-              objectPosition: 'center',
+              objectFit: 'cover',
+              objectPosition: 'center top',
             }}
             className="gallery-image"
             priority

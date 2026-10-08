@@ -11,8 +11,8 @@ export default function Home() {
                     <Image
                         src="/images/sese-logo.png"
                         alt="SéSé Logo"
-                        width={500}
-                        height={994}
+                        width={672}
+                        height={1324}
                         style={{
                             width: '100%',
                             height: '100%',

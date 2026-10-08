@@ -73,7 +73,7 @@ export default function BespokeStore() {
           display: flex;
           width: 100%;
           height: 100%;
-          padding: 50px 40px;
+          padding: 80px 40px 50px 40px;
           box-sizing: border-box;
           justify-content: space-between;
         }
@@ -90,10 +90,11 @@ export default function BespokeStore() {
           width: 50%;
           height: 100%;
           display: flex;
-          align-items: flex-end;
+          align-items: center;
           justify-content: space-between;
           gap: 24px;
-          padding-bottom: 70px;
+          padding-top: 100px;
+          padding-bottom: 0;
           box-sizing: border-box;
         }
 
@@ -193,7 +194,7 @@ export default function BespokeStore() {
           }
 
           .mobile-top-bar {
-            padding: 24px 20px 0px 20px !important;
+            padding: 80px 20px 0px 20px !important;
             display: flex !important;
             justify-content: flex-start !important;
             align-items: center !important;
@@ -204,9 +205,9 @@ export default function BespokeStore() {
             flex: 1 !important;
             display: flex !important;
             flex-direction: column !important;
-            justify-content: center !important;
+            justify-content: flex-start !important;
             align-items: center !important;
-            padding: 0 20px 40px 20px !important;
+            padding: 110px 20px 60px 20px !important;
             box-sizing: border-box !important;
           }
 
@@ -236,7 +237,7 @@ export default function BespokeStore() {
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
-            width: min(72vw, 320px) !important;
+            width: min(52vw, 220px) !important;
           }
 
           .mobile-card-box {

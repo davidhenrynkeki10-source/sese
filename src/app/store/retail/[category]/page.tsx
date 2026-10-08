@@ -77,7 +77,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           display: flex;
           flex-direction: row;
           align-items: center;
-          padding: 28px 0 12px 0;
+          padding: 48px 0 12px 0;
           flex-shrink: 0;
           width: 100%;
           box-sizing: border-box;
@@ -159,6 +159,20 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           display: none;
         }
 
+        .desktop-cat-title {
+          display: block;
+          text-align: center;
+          font-family: var(--ui-sans, sans-serif);
+          font-size: 9.5px;
+          font-weight: 500;
+          letter-spacing: 1px;
+          line-height: 14px;
+          color: var(--menu-muted, #b0b0b0);
+          text-transform: uppercase;
+          margin-bottom: 48px;
+          flex-shrink: 0;
+        }
+
         .bottom-nav {
           display: flex;
           justify-content: center;
@@ -190,6 +204,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             position: relative !important;
             width: 100% !important;
             box-sizing: border-box !important;
+          }
+          .desktop-cat-title {
+            display: none !important;
           }
           .store-center-link {
             padding-left: 0 !important;
@@ -284,9 +301,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
       {/* ── TOP BAR ── */}
       <div className="top-bar">
         <Link href="/store/retail" className="nav-link store-center-link">&lt;&lt; Store</Link>
-        <div className="top-bar-right">
-          <span className="cat-title">{displayName.toUpperCase()}</span>
-        </div>
       </div>
 
       {/* ── MAIN CONTENT AREA ── */}
