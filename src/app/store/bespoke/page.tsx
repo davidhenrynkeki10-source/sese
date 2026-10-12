@@ -9,14 +9,14 @@ const BESPOKE_OPTIONS = [
     title: 'Book an Appointment',
     href: '/store/bespoke/book-appointment',
     boxClass: 'card-box-appointment',
-    color: '#9E9E9E',
+    color: '#AAAAAA',
   },
   {
     id: 'measurements',
     title: 'Upload Measurements',
     href: '/store/bespoke/send-measurements',
     boxClass: 'card-box-measurements',
-    color: '#252528',
+    color: '#302D3A',
   },
 ];
 
@@ -135,11 +135,11 @@ export default function BespokeStore() {
         }
 
         .card-box-appointment {
-          background-color: #9E9E9E;
+          background-color: #AAAAAA;
         }
 
         .card-box-measurements {
-          background-color: #252528;
+          background-color: #302D3A;
         }
 
         /* Mobile Layout */
