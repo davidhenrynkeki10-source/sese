@@ -597,6 +597,17 @@ section {
   top: calc(28px + var(--home-top-padding));
 }
 
+.home-wrapper .minimal-nav .nav-item.about,
+.home-wrapper .minimal-nav .nav-item.store,
+.home-wrapper .minimal-nav .nav-item.cart {
+  letter-spacing: 0.5em !important;
+}
+
+.home-wrapper .minimal-nav .store-subtabs .nav-item,
+.home-wrapper .minimal-nav .about-subtabs .nav-item {
+  letter-spacing: 0.25em !important;
+}
+
 .home-wrapper .minimal-hero {
   min-height: 100%;
   height: 100%;
