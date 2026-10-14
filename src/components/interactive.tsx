@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { pieces, formatPrice, type Piece } from "@/data/collections";
@@ -113,7 +113,7 @@ export function SiteNavigation() {
                     onClick={(e) => handleClickTab("about", e)}
                     aria-expanded={isAboutOpen}
                 >
-                    A B O U T
+                    ABOUT
                 </button>
                 {isAboutOpen && (
                     <div className="store-subtabs about-subtabs">
@@ -134,7 +134,7 @@ export function SiteNavigation() {
                     onClick={(e) => handleClickTab("store", e)}
                     aria-expanded={isStoreOpen}
                 >
-                    S T O R E
+                    STORE
                 </button>
                 {isStoreOpen && (
                     <div className="store-subtabs">
@@ -150,7 +150,7 @@ export function SiteNavigation() {
                 onMouseEnter={handleCartHover}
                 onClick={() => { setMenuOpen(false); setHoveredTab(null); setClickedTab(null); }}
             >
-                C A R T ({count})
+                CART ({count})
             </Link>
         </nav>
     </header>;
