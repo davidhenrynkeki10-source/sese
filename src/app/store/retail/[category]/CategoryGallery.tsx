@@ -2,6 +2,8 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { getProductByImage } from '@/data/inventory';
 
 interface CategoryGalleryProps {
   displayName: string;
@@ -14,6 +16,7 @@ export default function CategoryGallery({
   images,
   aspectRatio,
 }: CategoryGalleryProps) {
+  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const total = images.length;
 
@@ -46,116 +49,158 @@ export default function CategoryGallery({
   const primaryImage = images[primaryIndex] || '/images/man-bag.png';
   const secondaryImage = images[secondaryIndex] || images[0] || '/images/man-bag.png';
 
+  // Workflow step: When user taps on the category image, open the product cart/purchase page
+  const handleImageClick = useCallback((imageSrc: string) => {
+    const product = getProductByImage(imageSrc, displayName);
+    if (product?.slug) {
+      router.push(`/product/${product.slug}`);
+    }
+  }, [displayName, router]);
+
   return (
-    <div
-      className="right-half"
-      style={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        height: '100%',
-        padding: '28px 40px 30px 40px',
-        boxSizing: 'border-box',
-      }}
-    >
-      {/* Desktop Category Title - above images */}
-      <div className="desktop-cat-title">
-        {displayName.toUpperCase()}
-      </div>
+    <>
+      <style>{`
+        .panel-interactive {
+          cursor: pointer;
+          position: relative;
+          overflow: hidden;
+        }
+        .panel-interactive .gallery-image {
+          transition: transform 0.4s ease;
+        }
+        .panel-interactive:hover .gallery-image {
+          transform: scale(1.02);
+        }
+      `}</style>
 
-      {/* Mobile Category Title - Centered above the image */}
-      <div className="mobile-cat-title">
-        {displayName.toUpperCase()}
-      </div>
-
-      {/* Images container: 1 image on mobile, 2 images side-by-side on desktop */}
       <div
-        className="panels"
+        className="right-half"
         style={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap: '8px',
           width: '100%',
-          maxWidth: '55vw',
-          height: 'calc(100vh - 280px)',
-          maxHeight: '620px',
-          ['--panel-aspect' as string]: aspectRatio,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          height: '100%',
+          padding: '28px 40px 30px 40px',
+          boxSizing: 'border-box',
         }}
       >
-        {/* Panel 1: Shown on desktop and mobile */}
-        <div
-          className="panel panel-primary"
-          style={{
-            position: 'relative',
-            flex: 1,
-            minWidth: 0,
-            height: '100%',
-          }}
-        >
-          <Image
-            key={`primary-${primaryImage}`}
-            src={primaryImage}
-            alt={`${displayName} – view ${primaryIndex + 1}`}
-            fill
-            sizes="(max-width: 800px) 90vw, 25vw"
-            style={{
-              objectFit: 'cover',
-              objectPosition: 'center top',
-            }}
-            className="gallery-image"
-            priority
-          />
+        {/* Desktop Category Title - above images */}
+        <div className="desktop-cat-title">
+          {displayName.toUpperCase()}
         </div>
 
-        {/* Panel 2: Shown on desktop, hidden on mobile */}
+        {/* Mobile Category Title - Centered above the image */}
+        <div className="mobile-cat-title">
+          {displayName.toUpperCase()}
+        </div>
+
+        {/* Images container: 1 image on mobile, 2 images side-by-side on desktop */}
         <div
-          className="panel panel-secondary"
+          className="panels"
           style={{
-            position: 'relative',
-            flex: 1,
-            minWidth: 0,
-            height: '100%',
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '8px',
+            width: '100%',
+            maxWidth: '55vw',
+            height: 'calc(100vh - 280px)',
+            maxHeight: '620px',
+            ['--panel-aspect' as string]: aspectRatio,
           }}
         >
-          <Image
-            key={`secondary-${secondaryImage}`}
-            src={secondaryImage}
-            alt={`${displayName} – view ${secondaryIndex + 1}`}
-            fill
-            sizes="(max-width: 800px) 0vw, 25vw"
-            style={{
-              objectFit: 'cover',
-              objectPosition: 'center top',
+          {/* Panel 1: Shown on desktop and mobile */}
+          <div
+            className="panel panel-primary panel-interactive"
+            onClick={() => handleImageClick(primaryImage)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleImageClick(primaryImage);
+              }
             }}
-            className="gallery-image"
-            priority
-          />
+            style={{
+              position: 'relative',
+              flex: 1,
+              minWidth: 0,
+              height: '100%',
+            }}
+          >
+            <Image
+              key={`primary-${primaryImage}`}
+              src={primaryImage}
+              alt={`${displayName} – view ${primaryIndex + 1}`}
+              fill
+              sizes="(max-width: 800px) 90vw, 25vw"
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'center top',
+              }}
+              className="gallery-image"
+              priority
+            />
+          </div>
+
+          {/* Panel 2: Shown on desktop, hidden on mobile */}
+          <div
+            className="panel panel-secondary panel-interactive"
+            onClick={() => handleImageClick(secondaryImage)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleImageClick(secondaryImage);
+              }
+            }}
+            style={{
+              position: 'relative',
+              flex: 1,
+              minWidth: 0,
+              height: '100%',
+            }}
+          >
+            <Image
+              key={`secondary-${secondaryImage}`}
+              src={secondaryImage}
+              alt={`${displayName} – view ${secondaryIndex + 1}`}
+              fill
+              sizes="(max-width: 800px) 0vw, 25vw"
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'center top',
+              }}
+              className="gallery-image"
+              priority
+            />
+          </div>
+        </div>
+
+        {/* Nav arrows: << and >> to go to next/previous photos */}
+        <div className="bottom-nav">
+          <button
+            type="button"
+            onClick={handlePrev}
+            className="side-btn"
+            aria-label="Previous photo"
+            title="Previous photo"
+          >
+            &lt;&lt;
+          </button>
+          <button
+            type="button"
+            onClick={handleNext}
+            className="side-btn"
+            aria-label="Next photo"
+            title="Next photo"
+          >
+            &gt;&gt;
+          </button>
         </div>
       </div>
-
-      {/* Nav arrows: << and >> to go to next/previous photos */}
-      <div className="bottom-nav">
-        <button
-          type="button"
-          onClick={handlePrev}
-          className="side-btn"
-          aria-label="Previous photo"
-          title="Previous photo"
-        >
-          &lt;&lt;
-        </button>
-        <button
-          type="button"
-          onClick={handleNext}
-          className="side-btn"
-          aria-label="Next photo"
-          title="Next photo"
-        >
-          &gt;&gt;
-        </button>
-      </div>
-    </div>
+    </>
   );
 }

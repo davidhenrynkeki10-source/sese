@@ -24,22 +24,15 @@ function shuffle<T>(arr: T[]): T[] {
 type SlotState = 'active' | 'sliding-in' | 'sliding-out' | 'idle';
 
 export default function RetailSlideshow() {
-  const [images, setImages] = useState<string[]>(SLIDES);
+  const [images] = useState<string[]>(() => shuffle(SLIDES));
   const [imgIndex, setImgIndex] = useState(0);
 
   // Two alternating slots to ensure seamless transitions with zero flicker or backward slide
   const [activeSlot, setActiveSlot] = useState<0 | 1>(0);
-  const [slotImages, setSlotImages] = useState<[string, string]>([SLIDES[0], '']);
+  const [slotImages, setSlotImages] = useState<[string, string]>(() => [images[0] || SLIDES[0], '']);
   const [slotStates, setSlotStates] = useState<[SlotState, SlotState]>(['active', 'idle']);
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Shuffle once on mount
-  useEffect(() => {
-    const shuffled = shuffle(SLIDES);
-    setImages(shuffled);
-    setSlotImages([shuffled[0], '']);
-  }, []);
 
   // Trigger slide transition every 4s when idle
   useEffect(() => {
@@ -178,5 +171,3 @@ export default function RetailSlideshow() {
     </>
   );
 }
-
-

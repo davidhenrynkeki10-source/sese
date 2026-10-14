@@ -2,6 +2,7 @@ import Link from 'next/link';
 import fs from 'fs';
 import path from 'path';
 import CategoryGallery from './CategoryGallery';
+import CategoryCartButton from '@/components/CategoryCartButton';
 
 const CATEGORIES = ['suits', 'shirts', 'shoes', 'slippers', 'kaftans', 'jackets'];
 
@@ -199,7 +200,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           .top-bar {
             padding: 16px 20px 0px 20px !important;
             display: flex !important;
-            justify-content: flex-start !important;
+            justify-content: space-between !important;
             align-items: center !important;
             position: relative !important;
             width: 100% !important;
@@ -299,8 +300,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
       `}} />
 
       {/* ── TOP BAR ── */}
-      <div className="top-bar">
+      <div className="top-bar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Link href="/store/retail" className="nav-link store-center-link">&lt;&lt; Store</Link>
+        <CategoryCartButton />
       </div>
 
       {/* ── MAIN CONTENT AREA ── */}

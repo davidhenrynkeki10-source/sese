@@ -1,6 +1,9 @@
-﻿export type Piece = {
-  id: string; slug: string; name: string; category: string; price: number; art: string; description: string;
-  store: "retail" | "bespoke"; availability: "ready-to-buy" | "made-to-order"; featured?: boolean;
+import { getProductById, type Product } from "./inventory";
+
+export type Piece = {
+  id: string; slug: string; name: string; category: string; price: number; art?: string; description: string;
+  store?: "retail" | "bespoke"; availability?: "ready-to-buy" | "made-to-order"; featured?: boolean;
+  image?: string; slideImage?: string; stock?: number; sizes?: string[]; details?: string[];
 };
 export const pieces: Piece[] = [
   { id: "01", slug: "fold-wrap", name: "The Fold Wrap", category: "Wearables", price: 85000, art: "fold", description: "A softly structured textile wrap, shaped for movement and everyday wear.", store: "retail", availability: "ready-to-buy", featured: true },
@@ -13,4 +16,6 @@ export const pieces: Piece[] = [
 export const categories = ["Wearables", "Objects", "Textiles", "Limited editions"];
 export const stories: { title: string; category: string; art: string; body: string }[] = [];
 export const formatPrice = (price: number) => `₦${price.toLocaleString("en-NG")}`;
-export const productBySlug = (slug: string) => pieces.find((piece) => piece.slug === slug);
+export const productBySlug = (slug: string): Piece | Product | undefined => {
+  return getProductById(slug) || pieces.find((piece) => piece.slug === slug);
+};
