@@ -112,7 +112,7 @@ export default async function ProductPage({
             overflow-y: auto !important;
           }
           .product-top-bar {
-            padding: 20px 20px 20px 20px !important;
+            padding: 20px 20px 32px 20px !important;
           }
           .product-main-container {
             padding: 16px 20px 40px 20px !important;
