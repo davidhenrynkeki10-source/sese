@@ -65,7 +65,7 @@ export default function BespokeStore() {
         .back-link-custom:hover {
           transform: scale(1.18);
           opacity: 1;
-          color: #000000;
+          color: var(--menu-muted, #b0b0b0);
         }
 
         /* Desktop Layout */

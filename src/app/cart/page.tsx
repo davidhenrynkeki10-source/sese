@@ -246,7 +246,7 @@ export default function CartPage() {
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = "scale(1.18)";
-            e.currentTarget.style.color = "#000000";
+            e.currentTarget.style.color = "var(--menu-muted, #b0b0b0)";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = "scale(1)";
@@ -459,11 +459,26 @@ export default function CartPage() {
                             Size: <span style={{ color: "#262320", fontWeight: 600 }}>{item.selectedSize}</span>
                           </div>
                         )}
-                        {item.category && (
-                          <div style={{ fontSize: "10.5px", color: "#8a837a", marginTop: "2px" }}>
-                            Category: {item.category}
-                          </div>
-                        )}
+                        {item.category && (() => {
+                          const catStr = typeof item.category === "string"
+                            ? item.category
+                            : (item.category as Record<string, unknown>)?.name
+                              ? String((item.category as Record<string, unknown>).name)
+                              : "";
+                          if (!catStr) return null;
+                          const catSlug = catStr.toLowerCase();
+                          return (
+                            <div style={{ fontSize: "10.5px", color: "#8a837a", marginTop: "2px" }}>
+                              Category:{" "}
+                              <Link
+                                href={`/store/retail/${catSlug}`}
+                                style={{ color: "#f68b1e", textDecoration: "none", fontWeight: 600 }}
+                              >
+                                {catStr}
+                              </Link>
+                            </div>
+                          );
+                        })()}
                       </div>
 
                       {/* Price on the right */}

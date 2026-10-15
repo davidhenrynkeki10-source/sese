@@ -139,7 +139,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             name: product.name,
             price: product.price,
             image: product.image || "/images/man-bag.png",
-            category: product.category || "Retail",
+            category: typeof product.category === "string" ? product.category : (product.category && typeof product.category === "object" && "name" in (product.category as object) ? String((product.category as Record<string, unknown>).name) : "Retail"),
             qty,
             selectedSize: itemSize,
             stock: product.stock,

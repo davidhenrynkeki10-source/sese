@@ -43,7 +43,7 @@ export default function RetailStore() {
         .home-link-custom:hover {
           transform: scale(1.18);
           opacity: 1;
-          color: #000000;
+          color: var(--menu-muted);
         }
 
         /* Mobile Adjustments */

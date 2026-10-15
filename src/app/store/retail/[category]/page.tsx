@@ -37,7 +37,9 @@ function getCategoryImages(category: string): string[] {
       '/images/SUITS/sese_suit2.jpg',
     ],
     jackets: ['/images/sese_retail_jacket.png'],
-    kaftans: ['/images/sese_retail_jacket.png'],
+    kaftans: ['/images/sese_kaftan.jpg'],
+    shoes: ['/images/sese_shoes.jpg'],
+    slippers: ['/images/sese_slippers.jpg'],
   };
 
   if (CATEGORY_DEFAULTS[cat]) {
@@ -89,10 +91,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           padding-left: 28px;
           z-index: 10;
           white-space: nowrap;
+          color: var(--menu-muted, #b0b0b0);
         }
         .store-center-link:hover {
           transform: scale(1.18);
-          color: #000000;
+          color: var(--menu-muted, #b0b0b0);
         }
 
         .top-bar-right {

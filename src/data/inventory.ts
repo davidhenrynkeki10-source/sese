@@ -60,8 +60,8 @@ export const initialProducts: Product[] = [
     category: "Kaftans",
     price: 145000,
     description: "Architectural kaftan silhouette cut from breathable raw cotton and fine wool blend. Featuring structured raglan shoulders and tonal placket stitching.",
-    image: "/images/sese_slide2.jpg",
-    slideImage: "/images/sese_slide2.jpg",
+    image: "/images/sese_kaftan.jpg",
+    slideImage: "/images/sese_kaftan.jpg",
     stock: 8,
     sizes: ["S", "M", "L", "XL"],
     details: [
@@ -149,8 +149,8 @@ export const initialProducts: Product[] = [
     category: "Slippers",
     price: 65000,
     description: "Hand-burnished calfskin leather slip-on with memory cushioned footbed and sculpted stacked leather sole.",
-    image: "/images/sese_slide6.jpg",
-    slideImage: "/images/sese_slide6.jpg",
+    image: "/images/sese_slippers.jpg",
+    slideImage: "/images/sese_slippers.jpg",
     stock: 10,
     sizes: ["41", "42", "43", "44", "45"],
     details: [
@@ -167,8 +167,8 @@ export const initialProducts: Product[] = [
     category: "Shoes",
     price: 160000,
     description: "Grounded Goodyear-welted leather formal footwear with sculpted heel, chiseled round toe and waxed cotton laces.",
-    image: "/images/sese_slide7.jpg",
-    slideImage: "/images/sese_slide7.jpg",
+    image: "/images/sese_shoes.jpg",
+    slideImage: "/images/sese_shoes.jpg",
     stock: 7,
     sizes: ["41", "42", "43", "44", "45"],
     details: [
