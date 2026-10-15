@@ -8,7 +8,7 @@ export default function RetailStore() {
       height: '100vh',
       width: '100vw',
       boxSizing: 'border-box',
-      padding: '50px 40px',
+      padding: '50px 41px',
       backgroundColor: '#ffffff',
       fontFamily: 'var(--ui-sans)'
     }}>
