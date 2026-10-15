@@ -121,6 +121,20 @@ function ensureBannerStyles() {
         height: 18px;
       }
     }
+@media (max-width: 600px) {
+  .sese-top-banner {
+    border: 2px solid #fff;
+    border-radius: 8px;
+    animation: seseBannerDance 1.5s ease-in-out;
+  }
+}
+@keyframes seseBannerDance {
+  0%, 100% { transform: translateY(0); }
+  20% { transform: translateY(-4px); }
+  40% { transform: translateY(4px); }
+  60% { transform: translateY(-4px); }
+  80% { transform: translateY(4px); }
+}
   `;
   document.head.appendChild(style);
 }

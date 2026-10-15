@@ -198,7 +198,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         /* Responsive */
         @media (max-width: 800px) {
           .top-bar {
-            padding: 16px 20px 0px 20px !important;
+            padding: 40px 20px 8px 20px !important;
+            padding-top: max(40px, env(safe-area-inset-top, 40px)) !important;
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
@@ -212,6 +213,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           .store-center-link {
             padding-left: 0 !important;
             z-index: 2 !important;
+          }
+          .store-cart-link {
+            padding-right: 0 !important;
           }
           .store-center-link:hover {
             transform: scale(1.18) !important;

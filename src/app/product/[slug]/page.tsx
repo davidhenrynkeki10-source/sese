@@ -121,6 +121,34 @@ export default async function ProductPage({
         }
         .product-back-link:hover {
           transform: scale(1.18);
+        }
+          font-size: 9.5px;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          color: var(--menu-muted, #b0b0b0);
+          font-family: var(--ui-sans, sans-serif);
+          font-weight: 500;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease;
+          transform-origin: left center;
+          text-decoration: none;
+        }
+        .product-back-link:hover {
+  transform: scale(1.18);
+}
+  transform: scale(1.18);
+}
+  transform: scale(1.18);
+}
+  transform: scale(1.18);
+}
+  transform: scale(1.18);
+}
+  transform: scale(1.18);
+}
+          transform: scale(1.18);
           color: #000000;
         }
       `}</style>
