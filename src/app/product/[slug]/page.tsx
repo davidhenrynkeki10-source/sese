@@ -79,6 +79,23 @@ export default async function ProductPage({
           border: 1px solid #eae5da;
           overflow: hidden;
         }
+        .product-back-link {
+          font-size: 9.5px;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          color: var(--menu-muted, #b0b0b0);
+          font-family: var(--ui-sans, sans-serif);
+          font-weight: 500;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+          transform-origin: left center;
+          text-decoration: none;
+        }
+        .product-back-link:hover {
+          transform: scale(1.18);
+        }
         @media (min-width: 860px) {
           .product-detail-layout {
             grid-template-columns: minmax(280px, 1fr) minmax(360px, 1.15fr);
@@ -95,7 +112,7 @@ export default async function ProductPage({
             overflow-y: auto !important;
           }
           .product-top-bar {
-            padding: 20px 20px 0 20px !important;
+            padding: 20px 20px 20px 20px !important;
           }
           .product-main-container {
             padding: 16px 20px 40px 20px !important;
@@ -105,53 +122,9 @@ export default async function ProductPage({
             height: 380px !important;
             margin: 0 auto !important;
           }
-        .product-back-link {
-          font-size: 9.5px;
-          letter-spacing: 1px;
-          text-transform: uppercase;
-          color: var(--menu-muted, #b0b0b0);
-          font-family: var(--ui-sans, sans-serif);
-          font-weight: 500;
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease;
-          transform-origin: left center;
-          text-decoration: none;
-        }
-        .product-back-link:hover {
-          transform: scale(1.18);
-        }
-          font-size: 9.5px;
-          letter-spacing: 1px;
-          text-transform: uppercase;
-          color: var(--menu-muted, #b0b0b0);
-          font-family: var(--ui-sans, sans-serif);
-          font-weight: 500;
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease;
-          transform-origin: left center;
-          text-decoration: none;
-        }
-        .product-back-link:hover {
-  transform: scale(1.18);
-}
-  transform: scale(1.18);
-}
-  transform: scale(1.18);
-}
-  transform: scale(1.18);
-}
-  transform: scale(1.18);
-}
-  transform: scale(1.18);
-}
-          transform: scale(1.18);
-          color: #000000;
         }
       `}</style>
+
 
       {/* Top bar with Back Link and Cart Button with Icon */}
       <div className="product-top-bar">
