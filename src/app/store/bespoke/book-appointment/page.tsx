@@ -90,6 +90,7 @@ export default function BookAppointment() {
                             type="date"
                             required
                             min={minDate}
+                            suppressHydrationWarning
                             value={selectedDate}
                             onChange={(e) => setSelectedDate(e.target.value)}
                         />

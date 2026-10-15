@@ -105,26 +105,29 @@ export default async function ProductPage({
             height: 380px !important;
             margin: 0 auto !important;
           }
+        .product-back-link {
+          font-size: 9.5px;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          color: var(--menu-muted, #b0b0b0);
+          font-family: var(--ui-sans, sans-serif);
+          font-weight: 500;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease;
+          transform-origin: left center;
+          text-decoration: none;
+        }
+        .product-back-link:hover {
+          transform: scale(1.18);
+          color: #000000;
         }
       `}</style>
 
       {/* Top bar with Back Link and Cart Button with Icon */}
       <div className="product-top-bar">
-        <Link
-          href={backHref}
-          style={{
-            fontSize: "9.5px",
-            letterSpacing: "1px",
-            textTransform: "uppercase",
-            color: "var(--menu-muted, #8a837a)",
-            fontWeight: 500,
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            transition: "color 0.2s, transform 0.2s",
-            textDecoration: "none",
-          }}
-        >
+        <Link href={backHref} className="product-back-link">
           &lt;&lt; Back
         </Link>
         <CategoryCartButton showIcon={true} />

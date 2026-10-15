@@ -32,13 +32,15 @@ export default function PaymentPopup() {
 
   const [isVerifying, setIsVerifying] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [paystackScriptLoaded, setPaystackScriptLoaded] = useState(() =>
-    typeof window !== "undefined" && Boolean(window.PaystackPop)
-  );
+  const [paystackScriptLoaded, setPaystackScriptLoaded] = useState(false);
 
   // Load Paystack Inline JS dynamically
   useEffect(() => {
-    if (typeof window === "undefined" || window.PaystackPop) return;
+    if (typeof window === "undefined") return;
+    if (window.PaystackPop) {
+      setPaystackScriptLoaded(true);
+      return;
+    }
 
     const script = document.createElement("script");
     script.src = "https://js.paystack.co/v1/inline.js";

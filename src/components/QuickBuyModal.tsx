@@ -5,7 +5,8 @@ import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/data/collections";
 import type { Product } from "@/data/inventory";
-import { showProductAddedAlert } from "@/utils/alerts";
+import { showProductAddedAlert, showQuantityUpdatedAlert } from "@/utils/alerts";
+import RollingNumber from "@/components/RollingNumber";
 
 export default function QuickBuyModal() {
   const { quickBuyProduct, closeQuickBuy } = useCart();
@@ -344,7 +345,12 @@ function QuickBuyDrawer({
             >
               <button
                 type="button"
-                onClick={() => setQty((prev) => Math.max(1, prev - 1))}
+                onClick={() => {
+                  if (qty <= 1) return;
+                  const next = qty - 1;
+                  setQty(next);
+                  showQuantityUpdatedAlert();
+                }}
                 style={{
                   width: "36px",
                   height: "36px",
@@ -353,26 +359,19 @@ function QuickBuyDrawer({
                   justifyContent: "center",
                   fontSize: "14px",
                   color: "#262320",
-                  cursor: "pointer",
+                  cursor: qty <= 1 ? "not-allowed" : "pointer",
                 }}
                 disabled={qty <= 1}
               >
                 &minus;
               </button>
-              <span
-                style={{
-                  width: "40px",
-                  textAlign: "center",
-                  fontSize: "12px",
-                  fontWeight: 600,
-                  color: "#262320",
-                }}
-              >
-                {qty}
-              </span>
+              <RollingNumber value={qty} width="40px" height="36px" fontSize="13px" />
               <button
                 type="button"
-                onClick={() => setQty((prev) => Math.min(maxStock, prev + 1))}
+                onClick={() => {
+                  if (qty >= maxStock) return;
+                  setQty((prev) => Math.min(maxStock, prev + 1));
+                }}
                 style={{
                   width: "36px",
                   height: "36px",

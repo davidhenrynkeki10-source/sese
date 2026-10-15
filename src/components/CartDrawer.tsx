@@ -26,6 +26,7 @@ export default function CartDrawer() {
   const [name, setName] = useState("");
   const [gateway, setGateway] = useState<"paystack" | "stripe">("paystack");
   const [formError, setFormError] = useState<string | null>(null);
+  const [updatingKey, setUpdatingKey] = useState<string | null>(null);
 
   if (!isCartOpen) return null;
 
@@ -308,63 +309,88 @@ export default function CartDrawer() {
 
                     {/* Quantity controls & Remove */}
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "8px" }}>
-                      <div
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          border: "1px solid #d7d0c5",
-                          background: "#ffffff",
-                        }}
-                      >
-                        <button
-                          type="button"
-                          onClick={() => {
-                            updateQty(item.id, item.qty - 1, item.selectedSize);
-                            setTimeout(() => {
-                              showQuantityUpdatedAlert({
-                                text: `${item.name}${item.selectedSize && item.selectedSize !== "Standard" ? ` · Size ${item.selectedSize}` : ""}`,
-                              });
-                            }, 400);
-                          }}
-                          style={{
-                            width: "28px",
-                            height: "26px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontSize: "12px",
-                            cursor: "pointer",
-                          }}
-                        >
-                          &minus;
-                        </button>
-                        <RollingNumber value={item.qty} width="26px" height="26px" fontSize="11px" />
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const max = item.stock ?? 999;
-                            if (item.qty >= max) return;
-                            updateQty(item.id, item.qty + 1, item.selectedSize);
-                            setTimeout(() => {
-                              showProductAddedAlert({
-                                productName: item.name,
-                                size: item.selectedSize,
-                              });
-                            }, 400);
-                          }}
-                          style={{
-                            width: "28px",
-                            height: "26px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontSize: "12px",
-                            cursor: "pointer",
-                          }}
-                        >
-                          +
-                        </button>
-                      </div>
+                      {(() => {
+                        const itemKey = `${item.id}-${item.selectedSize || "Standard"}`;
+                        const isUpdating = updatingKey === itemKey;
+                        return (
+                          <div
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              border: "1px solid #d7d0c5",
+                              background: isUpdating ? "#f9f9f9" : "#ffffff",
+                              borderRadius: "3px",
+                              overflow: "hidden",
+                            }}
+                          >
+                            <button
+                              type="button"
+                              disabled={isUpdating || item.qty <= 1}
+                              onClick={() => {
+                                if (isUpdating || item.qty <= 1) return;
+                                setUpdatingKey(itemKey);
+                                setTimeout(() => {
+                                  updateQty(item.id, item.qty - 1, item.selectedSize);
+                                  setUpdatingKey(null);
+                                  showQuantityUpdatedAlert();
+                                }, 500);
+                              }}
+                              style={{
+                                width: "28px",
+                                height: "26px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                fontSize: "12px",
+                                cursor: isUpdating || item.qty <= 1 ? "not-allowed" : "pointer",
+                                border: "none",
+                                background: isUpdating ? "#f0f0f0" : "transparent",
+                                color: isUpdating || item.qty <= 1 ? "#b7b7b7" : "#262320",
+                              }}
+                            >
+                              &minus;
+                            </button>
+                            <RollingNumber
+                              value={item.qty}
+                              width="26px"
+                              height="26px"
+                              fontSize="11px"
+                              isUpdating={isUpdating}
+                            />
+                            <button
+                              type="button"
+                              disabled={isUpdating || (item.stock !== undefined && item.qty >= item.stock)}
+                              onClick={() => {
+                                const max = item.stock ?? 999;
+                                if (isUpdating || item.qty >= max) return;
+                                setUpdatingKey(itemKey);
+                                setTimeout(() => {
+                                  updateQty(item.id, item.qty + 1, item.selectedSize);
+                                  setUpdatingKey(null);
+                                  showProductAddedAlert({
+                                    productName: item.name,
+                                    size: item.selectedSize,
+                                  });
+                                }, 500);
+                              }}
+                              style={{
+                                width: "28px",
+                                height: "26px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                fontSize: "12px",
+                                cursor: isUpdating || (item.stock !== undefined && item.qty >= item.stock) ? "not-allowed" : "pointer",
+                                border: "none",
+                                background: isUpdating ? "#f0f0f0" : "transparent",
+                                color: isUpdating || (item.stock !== undefined && item.qty >= item.stock) ? "#b7b7b7" : "#262320",
+                              }}
+                            >
+                              +
+                            </button>
+                          </div>
+                        );
+                      })()}
 
                       <button
                         type="button"

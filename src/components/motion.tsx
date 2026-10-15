@@ -3,7 +3,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import { hasNonStaticMethods } from "next/dist/server/route-modules/app-route/module";
 export function Motion() {
   const mounted = useRef(false); 
   useEffect(() => { 

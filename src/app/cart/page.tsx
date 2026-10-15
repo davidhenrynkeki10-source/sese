@@ -18,24 +18,31 @@ export default function CartPage() {
     executeCheckout,
     isCheckingOut,
     checkoutError,
+    isHydrated,
   } = useCart();
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [gateway, setGateway] = useState<"paystack" | "stripe">("paystack");
   const [formError, setFormError] = useState<string | null>(null);
+  const [updatingKey, setUpdatingKey] = useState<string | null>(null);
 
   const handleIncrease = (item: (typeof cart)[0]) => {
     const max = item.stock ?? 999;
     if (item.qty >= max) return;
-    const nextQty = item.qty + 1;
-    updateQty(item.id, nextQty, item.selectedSize);
+    const itemKey = `${item.id}-${item.selectedSize || "Standard"}`;
+    if (updatingKey === itemKey) return;
+    setUpdatingKey(itemKey);
+
     setTimeout(() => {
+      const nextQty = item.qty + 1;
+      updateQty(item.id, nextQty, item.selectedSize);
+      setUpdatingKey(null);
       showProductAddedAlert({
         productName: item.name,
         size: item.selectedSize,
       });
-    }, 400);
+    }, 550);
   };
 
   const handleDecrease = (item: (typeof cart)[0]) => {
@@ -43,13 +50,16 @@ export default function CartPage() {
       handleRemove(item);
       return;
     }
-    const nextQty = item.qty - 1;
-    updateQty(item.id, nextQty, item.selectedSize);
+    const itemKey = `${item.id}-${item.selectedSize || "Standard"}`;
+    if (updatingKey === itemKey) return;
+    setUpdatingKey(itemKey);
+
     setTimeout(() => {
-      showQuantityUpdatedAlert({
-        text: `${item.name}${item.selectedSize && item.selectedSize !== "Standard" ? ` · Size ${item.selectedSize}` : ""}`,
-      });
-    }, 400);
+      const nextQty = item.qty - 1;
+      updateQty(item.id, nextQty, item.selectedSize);
+      setUpdatingKey(null);
+      showQuantityUpdatedAlert();
+    }, 550);
   };
 
   const handleRemove = (item: (typeof cart)[0]) => {
@@ -149,9 +159,10 @@ export default function CartPage() {
           background: #e07b14;
         }
         .stepper-btn:disabled {
-          background: #d8d8d8;
+          background: #b7b7b7 !important;
+          color: #ffffff !important;
           cursor: not-allowed;
-          opacity: 0.7;
+          opacity: 0.95;
         }
         .stepper-btn-dec {
           background: #f68b1e;
@@ -218,16 +229,28 @@ export default function CartPage() {
       <header className="cart-page-header">
         <Link
           href="/store/retail"
+          className="cart-back-link"
           style={{
-            fontSize: "10px",
-            fontWeight: 600,
+            fontSize: "9.5px",
+            fontWeight: 500,
             letterSpacing: "1px",
             textTransform: "uppercase",
-            color: "#666666",
+            color: "var(--menu-muted, #b0b0b0)",
+            fontFamily: "var(--ui-sans, sans-serif)",
             textDecoration: "none",
             display: "inline-flex",
             alignItems: "center",
             gap: "6px",
+            transition: "transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease",
+            transformOrigin: "left center",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "scale(1.18)";
+            e.currentTarget.style.color = "#000000";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "scale(1)";
+            e.currentTarget.style.color = "var(--menu-muted, #b0b0b0)";
           }}
         >
           &lt;&lt; Back to Store
@@ -271,13 +294,26 @@ export default function CartPage() {
             <circle cx="20" cy="21" r="1" />
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
           </svg>
-          Cart ({totalItems})
+          Cart ({isHydrated ? totalItems : 0})
         </div>
       </header>
 
       {/* Main Cart Content */}
       <main className="cart-layout-grid">
-        {cart.length === 0 ? (
+        {!isHydrated ? (
+          <div
+            className="cart-card"
+            style={{
+              gridColumn: "1 / -1",
+              textAlign: "center",
+              padding: "70px 24px",
+            }}
+          >
+            <p style={{ fontSize: "13px", color: "#888888", letterSpacing: "0.5px" }}>
+              Loading your cart...
+            </p>
+          </div>
+        ) : cart.length === 0 ? (
           /* Empty Cart State */
           <div
             className="cart-card"
@@ -483,31 +519,40 @@ export default function CartPage() {
                         Remove
                       </button>
 
-                      {/* Stepper with Rolling Number */}
-                      <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                        <button
-                          type="button"
-                          onClick={() => handleDecrease(item)}
-                          className="stepper-btn stepper-btn-dec"
-                          aria-label="Decrease quantity"
-                        >
-                          &minus;
-                        </button>
-                        <RollingNumber
-                          value={item.qty}
-                          width="32px"
-                          height="32px"
-                          fontSize="13px"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => handleIncrease(item)}
-                          className="stepper-btn"
-                          aria-label="Increase quantity"
-                        >
-                          +
-                        </button>
-                      </div>
+                      {/* Stepper with Roll Spinner */}
+                      {(() => {
+                        const itemKey = `${item.id}-${item.selectedSize || "Standard"}`;
+                        const isUpdating = updatingKey === itemKey;
+                        return (
+                          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                            <button
+                              type="button"
+                              onClick={() => handleDecrease(item)}
+                              className="stepper-btn stepper-btn-dec"
+                              aria-label="Decrease quantity"
+                              disabled={isUpdating || item.qty <= 1}
+                            >
+                              &minus;
+                            </button>
+                            <RollingNumber
+                              value={item.qty}
+                              width="32px"
+                              height="32px"
+                              fontSize="13px"
+                              isUpdating={isUpdating}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => handleIncrease(item)}
+                              className="stepper-btn"
+                              aria-label="Increase quantity"
+                              disabled={isUpdating || (item.stock !== undefined && item.qty >= item.stock)}
+                            >
+                              +
+                            </button>
+                          </div>
+                        );
+                      })()}
                     </div>
                   </div>
                 ))}

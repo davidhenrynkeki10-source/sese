@@ -198,7 +198,7 @@ export default function ProductPurchaseForm({ product }: ProductPurchaseFormProp
               const next = qty - 1;
               setQty(next);
               setTimeout(() => {
-                showQuantityUpdatedAlert({ text: `Quantity set to ${next}` });
+                showQuantityUpdatedAlert();
               }, 400);
             }}
             disabled={qty <= 1}

@@ -29,6 +29,7 @@ export interface PaymentInitResponse {
 }
 
 interface CartContextType {
+  isHydrated: boolean;
   cart: CartItem[];
   totalItems: number;
   subtotal: number;
@@ -59,15 +60,8 @@ const STORAGE_KEY = "sese-cart-v2";
 const LEGACY_STORAGE_KEY = "sese-cart";
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [cart, setCart] = useState<CartItem[]>(() => {
-    if (typeof window === "undefined") return [];
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      return stored ? JSON.parse(stored) : [];
-    } catch {
-      return [];
-    }
-  });
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [isHydrated, setIsHydrated] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [quickBuyProduct, setQuickBuyProduct] = useState<Product | null>(null);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -76,8 +70,25 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
 
-  // Save cart to localStorage and maintain legacy compatibility
+  // Initialize cart from localStorage on client mount to avoid hydration mismatch
   useEffect(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          setCart(parsed);
+        }
+      }
+    } catch (e) {
+      console.warn("Failed to read cart from localStorage:", e);
+    }
+    setIsHydrated(true);
+  }, []);
+
+  // Save cart to localStorage only after initial hydration
+  useEffect(() => {
+    if (!isHydrated) return;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
       // Sync legacy slug array for older components
@@ -87,7 +98,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     } catch (e) {
       console.warn("Failed to save cart to localStorage:", e);
     }
-  }, [cart]);
+  }, [cart, isHydrated]);
 
   const totalItems = useMemo(() => {
     return cart.reduce((sum, item) => sum + item.qty, 0);
@@ -290,6 +301,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   );
 
   const value = {
+    isHydrated,
     cart,
     totalItems,
     subtotal,

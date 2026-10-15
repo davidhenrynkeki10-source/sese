@@ -3763,6 +3763,9 @@ button,
 .category-link,
 .home-link-custom,
 .back-link-custom,
+.cart-back-link,
+.product-back-link,
+.store-center-link,
 .side-btn,
 .arrow-link,
 .detail-back,
@@ -3777,7 +3780,11 @@ button,
 .category-link:hover,
 .home-link-custom:hover,
 .back-link-custom:hover,
+.cart-back-link:hover,
+.product-back-link:hover,
+.store-center-link:hover,
 .site-header nav a:hover,
 .site-header nav button:hover {
   transform: scale(1.18);
+  transform-origin: left center;
 }

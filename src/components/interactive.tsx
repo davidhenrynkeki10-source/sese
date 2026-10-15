@@ -7,7 +7,10 @@ import { useCart } from "@/context/CartContext";
 const cartKey = "sese-cart";
 function readCart(): string[] { try { return JSON.parse(localStorage.getItem(cartKey) || "[]") as string[]; } catch { return []; } }
 export function addToCart(slug: string) { const cart = readCart(); cart.push(slug); localStorage.setItem(cartKey, JSON.stringify(cart)); window.dispatchEvent(new Event("sese:cart")); }
-function useCartCount() { const { totalItems } = useCart(); return totalItems; }
+function useCartCount() {
+  const { totalItems, isHydrated } = useCart();
+  return isHydrated ? totalItems : 0;
+}
 export function SiteNavigation() {
     const count = useCartCount();
     const { setIsCartOpen } = useCart();
