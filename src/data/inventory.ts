@@ -113,7 +113,7 @@ export const initialProducts: Product[] = [
     category: "Jackets",
     price: 195000,
     description: "Cut from heavy textured crepe with subtle asymmetric drape and concealed placket, balancing architectural rigor and fluidity.",
-    image: "/images/sese_slide4.jpg",
+    image: "/images/sese_retail_jacket.png",
     slideImage: "/images/sese_slide4.jpg",
     stock: 6,
     sizes: ["38", "40", "42", "44"],
@@ -122,6 +122,23 @@ export const initialProducts: Product[] = [
       "Internal silk organza pocket welts",
       "Single button closure with hidden magnet catch",
       "Dry clean only",
+    ],
+  },
+  {
+    id: "retail-jacket-02",
+    slug: "architectural-crepe-jacket",
+    name: "Architectural Crepe Drape Jacket",
+    category: "Jackets",
+    price: 185000,
+    description: "Structured drape tailoring with tonal lapels and fluid silhouette.",
+    image: "/images/sese_slide4.jpg",
+    slideImage: "/images/sese_slide4.jpg",
+    stock: 5,
+    sizes: ["38", "40", "42", "44"],
+    details: [
+      "Mid-weight tactile crepe construction",
+      "Soft unlined interior with bound seams",
+      "Crafted in Lagos, Nigeria",
     ],
   },
   {
@@ -140,6 +157,23 @@ export const initialProducts: Product[] = [
       "Natural shell button down front",
       "Reinforced gusset stitching at side seams",
       "Soft pre-washed finish",
+    ],
+  },
+  {
+    id: "retail-shirt-02",
+    slug: "tailored-relaxed-silk-shirt",
+    name: "Tailored Relaxed Silk Shirt",
+    category: "Shirts",
+    price: 105000,
+    description: "Fluid silhouette raw silk shirt with structured cuffs and hand-finished placket.",
+    image: "/images/sese_slide6.jpg",
+    slideImage: "/images/sese_slide6.jpg",
+    stock: 8,
+    sizes: ["S", "M", "L", "XL"],
+    details: [
+      "100% Hand-loomed raw silk",
+      "Mother-of-pearl fastenings",
+      "Relaxed tailored silhouette",
     ],
   },
   {
@@ -208,7 +242,7 @@ export const initialProducts: Product[] = [
     category: "Textiles",
     price: 48000,
     description: "A considered textile study in texture, rhythm and belonging.",
-    image: "/images/sese_retail_jacket.png",
+    image: "/images/sese_slide7.jpg",
     stock: 9,
     sizes: ["One Size"],
   },
@@ -254,14 +288,43 @@ export function getProductByImage(imageSrc: string, categoryName?: string): Prod
   const normalized = imageSrc.replace(/^[./]+/, "/").split("?")[0].toLowerCase();
   const all = getAllProducts();
 
-  // 1. Direct match by image path
+  // If categoryName is provided, strictly search within matching category first
+  if (categoryName) {
+    const catFiltered = all.filter((p) => p.category.toLowerCase() === categoryName.toLowerCase());
+
+    const matchCatImage = catFiltered.find((p) => {
+      const pImg = p.image.toLowerCase();
+      return pImg === normalized || normalized.endsWith(pImg) || pImg.endsWith(normalized);
+    });
+    if (matchCatImage) return matchCatImage;
+
+    const matchCatSlide = catFiltered.find((p) => {
+      if (!p.slideImage) return false;
+      const pSlide = p.slideImage.toLowerCase();
+      return pSlide === normalized || normalized.endsWith(pSlide) || pSlide.endsWith(normalized);
+    });
+    if (matchCatSlide) return matchCatSlide;
+
+    const filename = normalized.split("/").pop();
+    if (filename) {
+      const matchCatFilename = catFiltered.find(
+        (p) => p.image.toLowerCase().includes(filename) || (p.slideImage && p.slideImage.toLowerCase().includes(filename))
+      );
+      if (matchCatFilename) return matchCatFilename;
+    }
+
+    if (catFiltered.length > 0) {
+      return catFiltered[0];
+    }
+  }
+
+  // General fallback when categoryName is not provided
   const matchImage = all.find((p) => {
     const pImg = p.image.toLowerCase();
     return pImg === normalized || normalized.endsWith(pImg) || pImg.endsWith(normalized);
   });
   if (matchImage) return matchImage;
 
-  // 2. Direct match by slide image
   const matchSlide = all.find((p) => {
     if (!p.slideImage) return false;
     const pSlide = p.slideImage.toLowerCase();
@@ -269,19 +332,12 @@ export function getProductByImage(imageSrc: string, categoryName?: string): Prod
   });
   if (matchSlide) return matchSlide;
 
-  // 3. Match filename without directories
   const filename = normalized.split("/").pop();
   if (filename) {
     const matchFilename = all.find(
       (p) => p.image.toLowerCase().includes(filename) || (p.slideImage && p.slideImage.toLowerCase().includes(filename))
     );
     if (matchFilename) return matchFilename;
-  }
-
-  // 4. Fallback by category
-  if (categoryName) {
-    const matchCat = all.find((p) => p.category.toLowerCase() === categoryName.toLowerCase());
-    if (matchCat) return matchCat;
   }
 
   return all[0];

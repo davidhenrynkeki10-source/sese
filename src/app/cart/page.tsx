@@ -140,72 +140,78 @@ export default function CartPage() {
           border-bottom: none;
         }
         .stepper-btn {
-          width: 32px;
-          height: 32px;
-          background: #f68b1e;
+          width: 30px;
+          height: 30px;
+          background: #262320;
           color: #ffffff;
-          border: none;
-          border-radius: 4px;
+          border: 1px solid #262320;
+          border-radius: 2px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 16px;
-          font-weight: 700;
+          font-size: 15px;
+          font-weight: 500;
+          line-height: 1;
           cursor: pointer;
-          transition: background 0.15s ease, opacity 0.15s ease;
+          transition: background 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
           user-select: none;
         }
         .stepper-btn:hover:not(:disabled) {
-          background: #e07b14;
+          background: #000000;
+          border-color: #000000;
+          transform: translateY(-1px);
         }
         .stepper-btn:disabled {
-          background: #b7b7b7 !important;
-          color: #ffffff !important;
+          background: #eae6df !important;
+          border-color: #eae6df !important;
+          color: #b5afa6 !important;
           cursor: not-allowed;
-          opacity: 0.95;
+          opacity: 0.9;
         }
         .stepper-btn-dec {
-          background: #f68b1e;
+          background: #262320;
         }
         .remove-action-btn {
           background: transparent;
           border: none;
-          color: #f68b1e;
-          font-size: 11px;
+          color: #8a837a;
+          font-size: 10.5px;
           font-weight: 600;
-          letter-spacing: 0.5px;
+          letter-spacing: 0.8px;
           text-transform: uppercase;
           cursor: pointer;
           display: inline-flex;
           align-items: center;
           gap: 6px;
           padding: 6px 0;
-          transition: color 0.15s ease;
+          transition: color 0.18s ease;
         }
         .remove-action-btn:hover {
-          color: #d9700b;
+          color: #570913;
         }
         .checkout-main-btn {
-          background: #f68b1e;
+          background: #262320;
           color: #ffffff;
-          border: none;
-          border-radius: 4px;
-          padding: 15px 20px;
+          border: 1px solid #262320;
+          border-radius: 2px;
+          padding: 16px 20px;
           width: 100%;
-          font-size: 13px;
-          font-weight: 700;
-          letter-spacing: 1px;
+          font-size: 11.5px;
+          font-weight: 600;
+          letter-spacing: 1.5px;
           text-transform: uppercase;
           cursor: pointer;
-          box-shadow: 0 4px 12px rgba(246, 139, 30, 0.28);
-          transition: background 0.2s ease, transform 0.15s ease;
+          box-shadow: 0 4px 14px rgba(38, 35, 32, 0.14);
+          transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
         }
         .checkout-main-btn:hover:not(:disabled) {
-          background: #e07b14;
+          background: #000000;
+          border-color: #000000;
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
           transform: translateY(-1px);
         }
         .checkout-main-btn:disabled {
-          opacity: 0.6;
+          opacity: 0.5;
           cursor: not-allowed;
         }
         .cart-text-input {
@@ -221,7 +227,7 @@ export default function CartPage() {
           transition: border-color 0.2s ease;
         }
         .cart-text-input:focus {
-          border-color: #f68b1e;
+          border-color: #262320;
         }
       `}</style>
 
@@ -274,7 +280,7 @@ export default function CartPage() {
             fontWeight: 600,
             letterSpacing: "1px",
             textTransform: "uppercase",
-            color: "#f68b1e",
+            color: "#262320",
             display: "inline-flex",
             alignItems: "center",
             gap: "6px",
@@ -328,11 +334,11 @@ export default function CartPage() {
                 width: "80px",
                 height: "80px",
                 borderRadius: "50%",
-                background: "#fdf4eb",
+                background: "#f5f2eb",
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#f68b1e",
+                color: "#262320",
                 marginBottom: "20px",
               }}
             >
@@ -472,7 +478,7 @@ export default function CartPage() {
                               Category:{" "}
                               <Link
                                 href={`/store/retail/${catSlug}`}
-                                style={{ color: "#f68b1e", textDecoration: "none", fontWeight: 600 }}
+                                style={{ color: "#262320", textDecoration: "underline", textUnderlineOffset: "3px", fontWeight: 600 }}
                               >
                                 {catStr}
                               </Link>

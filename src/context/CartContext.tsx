@@ -77,7 +77,40 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed)) {
-          setCart(parsed);
+          const migrated = parsed.map((item: CartItem) => {
+            if (
+              item.category?.toLowerCase() === "textiles" ||
+              item.slug === "memory-cloth" ||
+              item.image?.includes("sese_retail_jacket") ||
+              item.id === "03"
+            ) {
+              return {
+                ...item,
+                id: "retail-jacket-01",
+                slug: "sculpted-evening-jacket",
+                name: "Sculpted Drape Evening Jacket",
+                category: "Jackets",
+                image: "/images/sese_retail_jacket.png",
+              };
+            }
+            if (
+              item.category?.toLowerCase() === "objects" ||
+              item.slug === "contour-vessel" ||
+              item.image?.includes("man-bag") ||
+              item.id === "02"
+            ) {
+              return {
+                ...item,
+                id: "retail-shirt-01",
+                slug: "mandarin-collar-raw-shirt",
+                name: "Mandarin Collar Raw Silk Shirt",
+                category: "Shirts",
+                image: "/images/sese_slide5.jpg",
+              };
+            }
+            return item;
+          });
+          setCart(migrated);
         }
       }
     } catch (e) {

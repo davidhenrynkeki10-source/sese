@@ -8,7 +8,7 @@ export default function RollingNumber({
   height = "30px",
   fontSize = "13px",
   isUpdating = false,
-  spinnerColor = "#f68b1e",
+  spinnerColor = "#262320",
 }: {
   value: number;
   width?: string;

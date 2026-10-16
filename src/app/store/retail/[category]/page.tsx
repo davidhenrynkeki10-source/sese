@@ -36,7 +36,14 @@ function getCategoryImages(category: string): string[] {
       '/images/SUITS/sese_suit1.jpg',
       '/images/SUITS/sese_suit2.jpg',
     ],
-    jackets: ['/images/sese_retail_jacket.png'],
+    jackets: [
+      '/images/sese_retail_jacket.png',
+      '/images/sese_slide4.jpg',
+    ],
+    shirts: [
+      '/images/sese_slide5.jpg',
+      '/images/sese_slide6.jpg',
+    ],
     kaftans: ['/images/sese_kaftan.jpg'],
     shoes: ['/images/sese_shoes.jpg'],
     slippers: ['/images/sese_slippers.jpg'],

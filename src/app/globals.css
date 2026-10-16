@@ -492,7 +492,7 @@ section {
 
 .site-header nav.minimal-nav {
   display: flex;
-  gap: 50px;
+  gap: 24px;
   padding: 26px 5.5%;
   padding-right: 5.5%;
   margin-left: auto;
@@ -525,19 +525,19 @@ section {
   text-transform: uppercase;
   color: var(--menu-muted);
   font-weight: 500;
-  letter-spacing: 0.5em;
+  letter-spacing: 0.28em;
 }
 
 .minimal-nav .nav-item.store {
   color: var(--menu-muted);
   font-weight: 500;
-  letter-spacing: 0.5em;
+  letter-spacing: 0.28em;
 }
 
 .minimal-nav .nav-item.cart {
   color: var(--menu-sky);
   font-weight: 500;
-  letter-spacing: 0.5em;
+  letter-spacing: 0.28em;
 }
 
 .minimal-nav .nav-item.cart:hover {
@@ -601,10 +601,14 @@ section {
   top: calc(28px + var(--home-top-padding));
 }
 
+.home-wrapper .minimal-nav {
+  gap: 24px !important;
+}
+
 .home-wrapper .minimal-nav .nav-item.about,
 .home-wrapper .minimal-nav .nav-item.store,
 .home-wrapper .minimal-nav .nav-item.cart {
-  letter-spacing: 0.5em !important;
+  letter-spacing: 0.28em !important;
 }
 
 .home-wrapper .minimal-nav .store-subtabs .nav-item,
@@ -3229,7 +3233,7 @@ dialog::backdrop {
     align-items: center !important;
     justify-content: flex-start !important;
     padding: 12px 6% 16px !important;
-    gap: 16px !important;
+    gap: 10px !important;
     border: none !important;
     box-shadow: none !important;
     margin: 0 !important;
@@ -3277,7 +3281,7 @@ dialog::backdrop {
   .site-header.minimal nav.minimal-nav .nav-item.about,
   .site-header.minimal nav.minimal-nav .nav-item.store,
   .site-header.minimal nav.minimal-nav .nav-item.cart {
-    letter-spacing: 0.5em !important;
+    letter-spacing: 0.28em !important;
   }
 
   .site-header.minimal nav.minimal-nav .nav-item:hover,
@@ -3352,7 +3356,7 @@ dialog::backdrop {
   .site-header nav.minimal-nav {
     display: flex !important;
     flex-direction: row !important;
-    gap: 50px !important;
+    gap: 24px !important;
     padding: 26px 5.5% !important;
     padding-right: 5.5% !important;
     margin-left: auto !important;
