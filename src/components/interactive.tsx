@@ -15,8 +15,7 @@ export function SiteNavigation() {
     const count = useCartCount();
     const { setIsCartOpen } = useCart();
     const [menuOpen, setMenuOpen] = useState(false);
-    const [hoveredTab, setHoveredTab] = useState<"about" | "store" | null>(null);
-    const [clickedTab, setClickedTab] = useState<"about" | "store" | null>(null);
+    const [openTab, setOpenTab] = useState<"about" | "store" | null>(null);
     const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const navRef = useRef<HTMLElement | null>(null);
@@ -37,53 +36,46 @@ export function SiteNavigation() {
 
     const handleMouseEnter = (tab: "about" | "store") => {
         cancelLeaveTimeout();
+        if (openTab === tab) return;
+
         cancelHoverTimeout();
-        // Wait before showing on hover ("take a second before it appears")
         hoverTimeoutRef.current = setTimeout(() => {
-            setHoveredTab(tab);
-            if (clickedTab && clickedTab !== tab) {
-                setClickedTab(null);
-            }
-        }, 700);
+            setOpenTab(tab);
+            hoverTimeoutRef.current = null;
+        }, 500);
     };
 
     const handleMouseLeave = () => {
         cancelHoverTimeout();
         cancelLeaveTimeout();
         leaveTimeoutRef.current = setTimeout(() => {
-            setHoveredTab(null);
-        }, 220);
+            setOpenTab(null);
+            leaveTimeoutRef.current = null;
+        }, 250);
     };
 
     const handleCartHover = () => {
         cancelHoverTimeout();
         cancelLeaveTimeout();
-        setHoveredTab(null);
-        setClickedTab(null);
+        setOpenTab(null);
     };
 
-    const activeTab = hoveredTab || clickedTab;
-    const isAboutOpen = activeTab === "about";
-    const isStoreOpen = activeTab === "store";
+    const isAboutOpen = openTab === "about";
+    const isStoreOpen = openTab === "store";
 
     const handleClickTab = (tab: "about" | "store", e: React.MouseEvent) => {
         e.stopPropagation();
         cancelHoverTimeout();
         cancelLeaveTimeout();
-        if (activeTab === tab) {
-            setClickedTab(null);
-            setHoveredTab(null);
-        } else {
-            setClickedTab(tab);
-            setHoveredTab(tab);
-        }
+        setOpenTab((prev) => (prev === tab ? null : tab));
     };
 
     useEffect(() => {
         const handleClickOutside = (e: Event) => {
             if (navRef.current && !navRef.current.contains(e.target as Node)) {
-                setClickedTab(null);
-                setHoveredTab(null);
+                cancelHoverTimeout();
+                cancelLeaveTimeout();
+                setOpenTab(null);
             }
         };
         document.addEventListener("mousedown", handleClickOutside);
@@ -110,58 +102,55 @@ export function SiteNavigation() {
 
             {/* ABOUT tab */}
             <div
-                className="store-menu-container"
+                className={`store-menu-container ${isAboutOpen ? "is-open" : ""}`}
                 onMouseEnter={() => handleMouseEnter("about")}
                 onMouseLeave={handleMouseLeave}
             >
                 <button
                     type="button"
                     className="nav-item about"
-                    style={{ background: "transparent", border: "none", cursor: "pointer", font: "inherit", padding: 0, fontWeight: 600 }}
+                    style={{ background: "transparent", border: "none", cursor: "pointer", font: "inherit", padding: 0, fontWeight: 400 }}
                     onClick={(e) => handleClickTab("about", e)}
+                    aria-expanded={isAboutOpen}
                 >
                     ABOUT
                 </button>
-                {isAboutOpen && (
-                    <div className="about-subtabs" onMouseEnter={cancelLeaveTimeout} onMouseLeave={handleMouseLeave}>
-                        <Link href="/about" className="nav-item" style={{ fontWeight: 600 }} onClick={() => { setMenuOpen(false); setClickedTab(null); setHoveredTab(null); }}>MAN</Link>
-                        <Link href="/about" className="nav-item" style={{ fontWeight: 600 }} onClick={() => { setMenuOpen(false); setClickedTab(null); setHoveredTab(null); }}>BRAND</Link>
-                    </div>
-                )}
+                <div className="about-subtabs" onMouseEnter={cancelLeaveTimeout} onMouseLeave={handleMouseLeave}>
+                    <Link href="/about" className="nav-item" style={{ fontWeight: 400 }} onClick={() => { setMenuOpen(false); setOpenTab(null); }}>MAN</Link>
+                    <Link href="/about" className="nav-item" style={{ fontWeight: 400 }} onClick={() => { setMenuOpen(false); setOpenTab(null); }}>BRAND</Link>
+                </div>
             </div>
 
             {/* STORE tab */}
             <div
-                className="store-menu-container"
+                className={`store-menu-container ${isStoreOpen ? "is-open" : ""}`}
                 onMouseEnter={() => handleMouseEnter("store")}
                 onMouseLeave={handleMouseLeave}
             >
                 <button
                     type="button"
                     className="nav-item store"
-                    style={{ background: "transparent", border: "none", cursor: "pointer", font: "inherit", padding: 0, fontWeight: 600 }}
+                    style={{ background: "transparent", border: "none", cursor: "pointer", font: "inherit", padding: 0, fontWeight: 400 }}
                     onClick={(e) => handleClickTab("store", e)}
+                    aria-expanded={isStoreOpen}
                 >
                     STORE
                 </button>
-                {isStoreOpen && (
-                    <div className="store-subtabs" onMouseEnter={cancelLeaveTimeout} onMouseLeave={handleMouseLeave}>
-                        <Link href="/store/retail" className="nav-item" style={{ fontWeight: 600 }} onClick={() => { setMenuOpen(false); setClickedTab(null); setHoveredTab(null); }}>RETAIL</Link>
-                        <Link href="/store/bespoke" className="nav-item" style={{ fontWeight: 600 }} onClick={() => { setMenuOpen(false); setClickedTab(null); setHoveredTab(null); }}>BESPOKE</Link>
-                    </div>
-                )}
+                <div className="store-subtabs" onMouseEnter={cancelLeaveTimeout} onMouseLeave={handleMouseLeave}>
+                    <Link href="/store/retail" className="nav-item" style={{ fontWeight: 400 }} onClick={() => { setMenuOpen(false); setOpenTab(null); }}>RETAIL</Link>
+                    <Link href="/store/bespoke" className="nav-item" style={{ fontWeight: 400 }} onClick={() => { setMenuOpen(false); setOpenTab(null); }}>BESPOKE</Link>
+                </div>
             </div>
 
             {/* CART link */}
             <Link
                 href="/cart"
                 className="nav-item cart"
-                style={{ background: "transparent", border: "none", cursor: "pointer", font: "inherit", padding: 0, fontWeight: 600, textDecoration: "none" }}
+                style={{ background: "transparent", border: "none", cursor: "pointer", font: "inherit", padding: 0, fontWeight: 400, textDecoration: "none" }}
                 onMouseEnter={handleCartHover}
                 onClick={() => {
                     setMenuOpen(false);
-                    setHoveredTab(null);
-                    setClickedTab(null);
+                    setOpenTab(null);
                 }}
             >
                 CART ({count})

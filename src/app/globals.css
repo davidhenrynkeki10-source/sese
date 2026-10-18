@@ -551,6 +551,8 @@ section {
   align-items: center;
   z-index: 50;
   overflow: visible;
+  padding: 6px 10px;
+  margin: -6px -10px;
 }
 
 .store-subtabs,
@@ -558,6 +560,7 @@ section {
   position: absolute;
   top: 100%;
   left: 50%;
+  -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
@@ -565,17 +568,32 @@ section {
   padding-top: 8px;
   align-items: center;
   z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease 0s, visibility 0s ease 0.2s;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.store-menu-container.is-open .store-subtabs,
+.store-menu-container.is-open .about-subtabs {
+  opacity: 1;
+  visibility: visible;
   pointer-events: auto;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
 .store-subtabs::before,
 .about-subtabs::before {
   content: "";
   position: absolute;
-  top: -12px;
-  left: -24px;
-  right: -24px;
-  height: 14px;
+  top: -14px;
+  left: -30px;
+  right: -30px;
+  height: 20px;
+  background: transparent;
+  pointer-events: auto;
 }
 
 .store-subtabs .nav-item,
@@ -584,6 +602,8 @@ section {
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.25em;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .home-wrapper {
@@ -3292,6 +3312,11 @@ dialog::backdrop {
 
   .site-header.minimal nav.minimal-nav .store-subtabs,
   .site-header.minimal nav.minimal-nav .about-subtabs {
+    display: none !important;
+  }
+
+  .site-header.minimal nav.minimal-nav .store-menu-container.is-open .store-subtabs,
+  .site-header.minimal nav.minimal-nav .store-menu-container.is-open .about-subtabs {
     position: static !important;
     transform: none !important;
     display: flex !important;
@@ -3300,6 +3325,9 @@ dialog::backdrop {
     padding-top: 6px !important;
     gap: 6px !important;
     margin: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
   }
 
   .site-header.minimal nav.minimal-nav .store-subtabs .nav-item,
@@ -3531,6 +3559,16 @@ dialog::backdrop {
   background-repeat: no-repeat;
   background-position: right 14px center;
   padding-right: 36px;
+}
+
+.form-field input[type="date"] {
+  width: auto;
+  padding-right: 10px;
+}
+
+.form-field input[type="date"]::-webkit-calendar-picker-indicator {
+  margin-left: 56px;
+  cursor: pointer;
 }
 
 .form-field textarea {
