@@ -101,24 +101,10 @@ export function SiteNavigation() {
         <nav ref={navRef} className={`minimal-nav ${menuOpen ? "open" : ""}`} aria-label="Main navigation">
 
             {/* ABOUT tab */}
-            <div
-                className={`store-menu-container ${isAboutOpen ? "is-open" : ""}`}
-                onMouseEnter={() => handleMouseEnter("about")}
-                onMouseLeave={handleMouseLeave}
-            >
-                <button
-                    type="button"
-                    className="nav-item about"
-                    style={{ background: "transparent", border: "none", cursor: "pointer", font: "inherit", padding: 0, fontWeight: 400 }}
-                    onClick={(e) => handleClickTab("about", e)}
-                    aria-expanded={isAboutOpen}
-                >
+<div className="store-menu-container">
+                <Link href="/about" className="nav-item about" style={{ background: "transparent", border: "none", cursor: "pointer", font: "inherit", padding: 0, fontWeight: 400 }} onClick={() => { setMenuOpen(false); setOpenTab(null); }}>
                     ABOUT
-                </button>
-                <div className="about-subtabs" onMouseEnter={cancelLeaveTimeout} onMouseLeave={handleMouseLeave}>
-                    <Link href="/about" className="nav-item" style={{ fontWeight: 400 }} onClick={() => { setMenuOpen(false); setOpenTab(null); }}>MAN</Link>
-                    <Link href="/about" className="nav-item" style={{ fontWeight: 400 }} onClick={() => { setMenuOpen(false); setOpenTab(null); }}>BRAND</Link>
-                </div>
+                </Link>
             </div>
 
             {/* STORE tab */}
