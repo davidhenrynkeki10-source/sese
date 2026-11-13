@@ -3251,8 +3251,8 @@ dialog::backdrop {
     background: #ffffff !important;
     grid-template-columns: 1fr auto 1fr !important;
     align-items: center !important;
-    padding: 12px 6% 16px !important;
-    gap: 20px !important;
+    padding: 12px 4% 16px !important;
+    gap: clamp(28px, 8vw, 44px) !important;
     border: none !important;
     box-shadow: none !important;
     margin: 0 !important;
@@ -3268,6 +3268,7 @@ dialog::backdrop {
 
   .site-header.minimal nav.minimal-nav > *:nth-child(2) {
     justify-self: center !important;
+    padding: 0 12px !important;
   }
 
   .site-header.minimal nav.minimal-nav > *:nth-child(3),
