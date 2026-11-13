@@ -3249,9 +3249,8 @@ dialog::backdrop {
     right: 0 !important;
     width: 100% !important;
     background: #ffffff !important;
-    flex-direction: row !important;
+    grid-template-columns: 1fr auto 1fr !important;
     align-items: center !important;
-    justify-content: center !important;
     padding: 12px 6% 16px !important;
     gap: 20px !important;
     border: none !important;
@@ -3260,7 +3259,20 @@ dialog::backdrop {
   }
 
   .site-header.minimal nav.minimal-nav.open {
-    display: flex !important;
+    display: grid !important;
+  }
+
+  .site-header.minimal nav.minimal-nav > *:nth-child(1) {
+    justify-self: end !important;
+  }
+
+  .site-header.minimal nav.minimal-nav > *:nth-child(2) {
+    justify-self: center !important;
+  }
+
+  .site-header.minimal nav.minimal-nav > *:nth-child(3),
+  .site-header.minimal nav.minimal-nav .nav-item.cart {
+    justify-self: start !important;
   }
 
   /* Reset all buttons, links, containers in minimal-nav to prevent button min-height/centering from distorting spacing */
