@@ -3249,11 +3249,11 @@ dialog::backdrop {
     right: 0 !important;
     width: 100% !important;
     background: #ffffff !important;
-    flex-direction: column !important;
+    flex-direction: row !important;
     align-items: center !important;
-    justify-content: flex-start !important;
+    justify-content: center !important;
     padding: 12px 6% 16px !important;
-    gap: 10px !important;
+    gap: 20px !important;
     border: none !important;
     box-shadow: none !important;
     margin: 0 !important;
@@ -3265,6 +3265,7 @@ dialog::backdrop {
 
   /* Reset all buttons, links, containers in minimal-nav to prevent button min-height/centering from distorting spacing */
   .site-header.minimal nav.minimal-nav .store-menu-container {
+    position: relative !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -3317,17 +3318,21 @@ dialog::backdrop {
 
   .site-header.minimal nav.minimal-nav .store-menu-container.is-open .store-subtabs,
   .site-header.minimal nav.minimal-nav .store-menu-container.is-open .about-subtabs {
-    position: static !important;
-    transform: none !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    padding-top: 6px !important;
+    padding: 8px 10px 4px !important;
     gap: 6px !important;
     margin: 0 !important;
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
+    background: #ffffff !important;
+    z-index: 100 !important;
   }
 
   .site-header.minimal nav.minimal-nav .store-subtabs .nav-item,
