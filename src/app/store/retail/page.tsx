@@ -8,11 +8,12 @@ export default function RetailStore() {
       height: '100vh',
       width: '100vw',
       boxSizing: 'border-box',
-      padding: '50px 41px',
+      padding: '50px 42px',
       backgroundColor: '#ffffff',
       fontFamily: 'var(--ui-sans)'
     }}>
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .category-link {
           text-decoration: none;
           color: var(--menu-muted);
@@ -92,7 +93,7 @@ export default function RetailStore() {
       {/* Right Section — Slideshow */}
       <div className="right-section" style={{
         width: '70%',
-        height: 'calc(100vh - 100px)', 
+        height: 'calc(100vh - 100px)',
         position: 'relative',
         overflow: 'hidden',
         flexShrink: 0,

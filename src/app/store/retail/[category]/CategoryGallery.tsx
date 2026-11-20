@@ -60,6 +60,32 @@ export default function CategoryGallery({
   return (
     <>
       <style>{`
+        .panels {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          gap: 16px;
+          width: 100%;
+          max-width: 90vw;
+          height: calc(100vh - 210px);
+          height: calc(100dvh - 210px);
+          max-height: 640px;
+          min-height: 0;
+          box-sizing: border-box;
+        }
+        .panel {
+          position: relative;
+          height: 100%;
+          width: auto;
+          aspect-ratio: var(--panel-aspect, 271 / 388);
+          max-width: calc((100% - 16px) / 2);
+          flex: 0 1 auto;
+          box-sizing: border-box;
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+          transform: translateZ(0);
+        }
         .panel-interactive {
           cursor: pointer;
           position: relative;
@@ -67,6 +93,8 @@ export default function CategoryGallery({
         }
         .panel-interactive .gallery-image {
           transition: transform 0.4s ease;
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
         }
         .panel-interactive:hover .gallery-image {
           transform: scale(1.02);
@@ -82,7 +110,7 @@ export default function CategoryGallery({
           justifyContent: 'flex-start',
           alignItems: 'center',
           height: '100%',
-          padding: '28px 40px 30px 40px',
+          padding: 'clamp(16px, 2.5vh, 28px) 40px clamp(16px, 2.5vh, 28px) 40px',
           boxSizing: 'border-box',
         }}
       >
@@ -100,13 +128,6 @@ export default function CategoryGallery({
         <div
           className="panels"
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: '8px',
-            width: '100%',
-            maxWidth: '55vw',
-            height: 'calc(100vh - 280px)',
-            maxHeight: '620px',
             ['--panel-aspect' as string]: aspectRatio,
           }}
         >
@@ -122,19 +143,13 @@ export default function CategoryGallery({
                 handleImageClick(primaryImage);
               }
             }}
-            style={{
-              position: 'relative',
-              flex: 1,
-              minWidth: 0,
-              height: '100%',
-            }}
           >
             <Image
               key={`primary-${primaryImage}`}
               src={primaryImage}
               alt={`${displayName} – view ${primaryIndex + 1}`}
               fill
-              sizes="(max-width: 800px) 90vw, 25vw"
+              sizes="(max-width: 800px) 90vw, (max-width: 1400px) 45vw, 600px"
               style={{
                 objectFit: 'cover',
                 objectPosition: 'center top',
@@ -156,19 +171,13 @@ export default function CategoryGallery({
                 handleImageClick(secondaryImage);
               }
             }}
-            style={{
-              position: 'relative',
-              flex: 1,
-              minWidth: 0,
-              height: '100%',
-            }}
           >
             <Image
               key={`secondary-${secondaryImage}`}
               src={secondaryImage}
               alt={`${displayName} – view ${secondaryIndex + 1}`}
               fill
-              sizes="(max-width: 800px) 0vw, 25vw"
+              sizes="(max-width: 800px) 0vw, (max-width: 1400px) 45vw, 600px"
               style={{
                 objectFit: 'cover',
                 objectPosition: 'center top',

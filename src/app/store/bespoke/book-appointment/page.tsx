@@ -29,7 +29,7 @@ export default function BookAppointment() {
                 <div className="bespoke-success">
                     <p className="eyebrow"></p>
                     <h1>Thank you.</h1>
-                    <p>Your appointment request has been received. We&rsquo;ll confirm via email within 24 hours.</p>
+                    <p>Your Appointment request has been received. We&rsquo;ll confirm via email within 24 hours.</p>
                     <Link href="/store/bespoke" className="arrow-link">
                         Return to Bespoke
                         <svg aria-hidden="true" className="arrow-glyph" viewBox="0 0 24 24" fill="none">
@@ -43,7 +43,8 @@ export default function BookAppointment() {
 
     return (
         <main className="store-page bespoke-form-page" style={{ padding: '50px 40px 90px 40px', boxSizing: 'border-box' }}>
-            <style dangerouslySetInnerHTML={{__html: `
+            <style dangerouslySetInnerHTML={{
+                __html: `
                 .back-link-custom {
                     text-decoration: none;
                     color: var(--menu-muted, #b0b0b0);

@@ -64,7 +64,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 
   const displayName = currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1);
   const images = getCategoryImages(currentCategory);
-  const categoryAspect = ['suits', 'jackets', 'kaftans'].includes(currentCategory) ? '271 / 388' : '314 / 422';
+  const categoryAspect = ['suits', 'jackets', 'kaftans', 'shirts'].includes(currentCategory) ? '271 / 388' : '314 / 422';
 
   return (
     <div className="page-root" style={{
@@ -87,7 +87,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           display: flex;
           flex-direction: row;
           align-items: center;
-          padding: 48px 0 12px 0;
+          padding: clamp(28px, 4.5vh, 48px) 0 10px 0;
           flex-shrink: 0;
           width: 100%;
           box-sizing: border-box;
@@ -180,7 +180,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           line-height: 14px;
           color: var(--menu-muted, #b0b0b0);
           text-transform: uppercase;
-          margin-bottom: 48px;
+          margin-bottom: clamp(16px, 3vh, 36px);
           flex-shrink: 0;
         }
 

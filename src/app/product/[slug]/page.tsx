@@ -44,7 +44,7 @@ export default async function ProductPage({
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 32px 48px 8px 48px;
+          padding: 32px 47px 8px 48px;
           flex-shrink: 0;
           width: 100%;
           box-sizing: border-box;
@@ -56,7 +56,7 @@ export default async function ProductPage({
           flex-direction: column;
           justify-content: center;
           padding: 20px 48px 28px 48px;
-          max-width: 1220px;
+          max-width: 1221px;
           width: 100%;
           margin: 0 auto;
           box-sizing: border-box;
